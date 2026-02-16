@@ -1,0 +1,926 @@
+/* ============================================ */
+/* GLOBAL STYLES */
+/* ============================================ */
+body {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  box-sizing: border-box;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* ============================================ */
+/* LOGIN PAGE STYLES */
+/* ============================================ */
+.login-page {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #e0f2fe, #f8fafc);
+}
+
+.login-page.dark {
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+}
+
+.login-card {
+  background: white;
+  padding: 50px;
+  border-radius: 20px;
+  width: 350px;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.login-page.dark .login-card {
+  background: #1e293b;
+  color: white;
+}
+
+.logo {
+  width: 220px;
+  margin-bottom: 20px;
+}
+
+.subtitle {
+  font-size: 14px;
+  margin-bottom: 20px;
+  opacity: 0.8;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+}
+
+button {
+  padding: 12px 20px;
+  border-radius: 8px;
+  border: none;
+  background-color: #2563eb;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s ease;
+  font-size: 14px;
+}
+
+button:hover {
+  background-color: #1d4ed8;
+}
+
+button:disabled {
+  background-color: #94a3b8;
+  cursor: not-allowed;
+}
+
+.toggle {
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+/* ============================================ */
+/* POS PAGE LAYOUT */
+/* ============================================ */
+.pos-page {
+  min-height: 100vh;
+  background: #f1f5f9;
+  display: flex;
+  flex-direction: column;
+}
+
+.pos-page.dark {
+  background: #0f172a;
+  color: white;
+}
+
+/* ============================================ */
+/* HEADER STYLES */
+/* ============================================ */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.pos-page.dark .header {
+  background: #1e293b;
+}
+
+.logo-small {
+  height: 50px;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.header-right button {
+  padding: 8px 16px;
+  font-size: 13px;
+}
+
+/* ============================================ */
+/* POS CONTENT LAYOUT */
+/* ============================================ */
+.pos-content {
+  flex: 1;
+  padding: 20px;
+  overflow: hidden;
+}
+
+.pos-layout {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 20px;
+  height: calc(100vh - 120px);
+}
+
+/* ============================================ */
+/* MENU PANEL STYLES */
+/* ============================================ */
+.menu-section {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  overflow-y: auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.pos-page.dark .menu-section {
+  background: #1e293b;
+}
+
+.category-navigation h2 {
+  margin: 0 0 15px 0;
+  font-size: 20px;
+}
+
+.category-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.category-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: #f1f5f9;
+  color: #475569;
+  border-radius: 10px;
+  border: 2px solid transparent;
+  transition: all 0.2s;
+}
+
+.category-btn:hover {
+  background: #e0e7ff;
+  color: #4338ca;
+}
+
+.category-btn.active {
+  background: #4f46e5;
+  color: white;
+  border-color: #4338ca;
+}
+
+.category-icon {
+  font-size: 20px;
+}
+
+.current-category-title {
+  font-size: 24px;
+  margin: 0 0 20px 0;
+  color: #1e293b;
+}
+
+.pos-page.dark .current-category-title {
+  color: white;
+}
+
+/* ============================================ */
+/* MENU ITEMS GRID */
+/* ============================================ */
+.menu-items-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.menu-item-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-item-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.pos-page.dark .menu-item-card {
+  background: #334155;
+}
+
+.item-image {
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+}
+
+.item-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.item-details {
+  padding: 15px;
+  flex: 1;
+}
+
+.item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  margin-bottom: 10px;
+}
+
+.item-header h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #1e293b;
+}
+
+.pos-page.dark .item-header h3 {
+  color: white;
+}
+
+.item-price {
+  font-size: 18px;
+  font-weight: bold;
+  color: #16a34a;
+}
+
+.item-description {
+  font-size: 13px;
+  color: #64748b;
+  margin: 10px 0;
+  line-height: 1.4;
+}
+
+/* Allergen, Protein, Ingredients, Sides Sections */
+.allergen-section,
+.protein-section,
+.ingredients-section,
+.sides-section {
+  margin: 10px 0;
+  font-size: 12px;
+}
+
+.allergen-section strong,
+.protein-section strong,
+.ingredients-section strong,
+.sides-section strong {
+  display: block;
+  margin-bottom: 5px;
+  color: #1e293b;
+}
+
+.pos-page.dark .allergen-section strong,
+.pos-page.dark .protein-section strong,
+.pos-page.dark .ingredients-section strong,
+.pos-page.dark .sides-section strong {
+  color: #e2e8f0;
+}
+
+.allergen-tags,
+.protein-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.allergen-tag {
+  background: #fef2f2;
+  color: #dc2626;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  border: 1px solid #fecaca;
+}
+
+.protein-tag {
+  background: #fef3c7;
+  color: #92400e;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  border: 1px solid #fde68a;
+}
+
+.ingredients-list,
+.sides-list {
+  margin: 5px 0;
+  padding-left: 20px;
+  color: #64748b;
+}
+
+.ingredients-list li,
+.sides-list li {
+  margin: 3px 0;
+}
+
+.add-to-order-btn {
+  width: 100%;
+  padding: 12px;
+  background: #16a34a;
+  color: white;
+  border: none;
+  border-radius: 0 0 12px 12px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.add-to-order-btn:hover {
+  background: #15803d;
+}
+
+/* ============================================ */
+/* ORDER CART STYLES */
+/* ============================================ */
+.cart-section {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  overflow-y: auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+}
+
+.pos-page.dark .cart-section {
+  background: #1e293b;
+}
+
+.order-cart {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.cart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.cart-header h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.clear-order-btn {
+  padding: 8px 16px;
+  background: #dc2626;
+  font-size: 13px;
+}
+
+.clear-order-btn:hover {
+  background: #b91c1c;
+}
+
+.cart-items {
+  flex: 1;
+  overflow-y: auto;
+  margin-bottom: 20px;
+}
+
+.empty-cart {
+  text-align: center;
+  color: #94a3b8;
+  padding: 40px 20px;
+  font-style: italic;
+}
+
+.cart-item {
+  background: #f8fafc;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+.pos-page.dark .cart-item {
+  background: #334155;
+}
+
+.cart-item-info h4 {
+  margin: 0 0 5px 0;
+  font-size: 16px;
+}
+
+.cart-item-price {
+  font-size: 12px;
+  color: #64748b;
+  margin: 0;
+}
+
+.cart-item-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+  gap: 10px;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.qty-btn {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border-radius: 6px;
+  background: #e0e7ff;
+  color: #4338ca;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.qty-btn:hover {
+  background: #c7d2fe;
+}
+
+.quantity {
+  min-width: 30px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.cart-item-total {
+  font-weight: bold;
+  font-size: 16px;
+  color: #16a34a;
+}
+
+.remove-item-btn {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  background: #fee2e2;
+  border-radius: 6px;
+  font-size: 18px;
+}
+
+.remove-item-btn:hover {
+  background: #fecaca;
+}
+
+/* Cart Summary */
+.cart-summary {
+  border-top: 2px solid #e2e8f0;
+  padding-top: 15px;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin: 8px 0;
+  font-size: 14px;
+}
+
+.total-row {
+  font-size: 18px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 2px solid #e2e8f0;
+}
+
+.proceed-payment-btn {
+  width: 100%;
+  padding: 16px;
+  margin-top: 15px;
+  background: #2563eb;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.proceed-payment-btn:hover {
+  background: #1d4ed8;
+}
+
+/* ============================================ */
+/* PAYMENT MODAL STYLES */
+/* ============================================ */
+.payment-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.payment-modal {
+  background: white;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.payment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 30px;
+  border-bottom: 2px solid #e2e8f0;
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 10;
+}
+
+.payment-header h2 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.close-btn {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  background: #f1f5f9;
+  color: #475569;
+  font-size: 20px;
+  border-radius: 8px;
+}
+
+.close-btn:hover {
+  background: #e2e8f0;
+}
+
+.payment-summary,
+.tip-section,
+.payment-methods,
+.cash-payment-section,
+.card-payment-section,
+.payment-completed {
+  padding: 20px 30px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.payment-summary h3,
+.tip-section h3,
+.payment-methods h3,
+.cash-payment-section h3,
+.card-payment-section h3 {
+  margin: 0 0 15px 0;
+  font-size: 18px;
+}
+
+.summary-line {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+  font-size: 15px;
+}
+
+.summary-line.total-line {
+  font-size: 20px;
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 2px solid #e2e8f0;
+}
+
+/* Tip Section */
+.tip-buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.tip-btn {
+  padding: 12px;
+  background: #f1f5f9;
+  color: #475569;
+  border: 2px solid transparent;
+}
+
+.tip-btn:hover {
+  background: #e0e7ff;
+}
+
+.tip-btn.active {
+  background: #4f46e5;
+  color: white;
+  border-color: #4338ca;
+}
+
+.custom-tip-input {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+/* Payment Methods */
+.payment-method-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.payment-method-btn {
+  padding: 24px;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.cash-btn {
+  background: #16a34a;
+}
+
+.cash-btn:hover {
+  background: #15803d;
+}
+
+.card-btn {
+  background: #2563eb;
+}
+
+.card-btn:hover {
+  background: #1d4ed8;
+}
+
+/* Cash/Card Payment Sections */
+.cash-input {
+  width: 100%;
+  padding: 16px;
+  font-size: 20px;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.change-display {
+  text-align: center;
+  padding: 15px;
+  background: #f1f5f9;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
+.change-display span {
+  font-size: 24px;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.change-display .sufficient {
+  color: #16a34a;
+}
+
+.change-display .insufficient {
+  color: #dc2626;
+}
+
+.payment-actions {
+  display: flex;
+  gap: 15px;
+  justify-content: space-between;
+}
+
+.payment-actions button {
+  flex: 1;
+  padding: 14px;
+  font-size: 15px;
+}
+
+.complete-payment-btn {
+  background: #16a34a;
+}
+
+.complete-payment-btn:hover {
+  background: #15803d;
+}
+
+/* Payment Completed */
+.success-message {
+  color: #16a34a;
+  text-align: center;
+  margin: 0 0 10px 0;
+}
+
+.payment-completed p {
+  text-align: center;
+  color: #64748b;
+  margin: 0 0 25px 0;
+}
+
+.action-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.action-btn {
+  padding: 14px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.print-order-btn {
+  background: #8b5cf6;
+}
+
+.print-order-btn:hover {
+  background: #7c3aed;
+}
+
+.print-receipt-btn {
+  background: #06b6d4;
+}
+
+.print-receipt-btn:hover {
+  background: #0891b2;
+}
+
+.reprint-btn {
+  background: #64748b;
+}
+
+.reprint-btn:hover {
+  background: #475569;
+}
+
+.refund-btn {
+  background: #dc2626;
+}
+
+.refund-btn:hover {
+  background: #b91c1c;
+}
+
+.new-order-btn {
+  width: 100%;
+  padding: 16px;
+  margin-top: 10px;
+  background: #2563eb;
+  font-size: 16px;
+}
+
+.print-order-only-btn {
+  margin: 20px 30px;
+  width: calc(100% - 60px);
+  padding: 14px;
+  background: #8b5cf6;
+}
+
+.print-order-only-btn:hover {
+  background: #7c3aed;
+}
+
+/* Refund Prompt */
+.refund-prompt-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.refund-prompt {
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.refund-prompt h3 {
+  margin: 0 0 10px 0;
+  color: #dc2626;
+}
+
+.refund-prompt p {
+  color: #64748b;
+  margin: 0 0 20px 0;
+}
+
+.refund-password-input {
+  width: 100%;
+  padding: 14px;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 16px;
+  text-align: center;
+}
+
+.refund-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.refund-actions button {
+  flex: 1;
+  padding: 14px;
+}
+
+.process-refund-btn {
+  background: #dc2626;
+}
+
+.process-refund-btn:hover {
+  background: #b91c1c;
+}
+
+/* ============================================ */
+/* RESPONSIVE DESIGN */
+/* ============================================ */
+@media (max-width: 1200px) {
+  .pos-layout {
+    grid-template-columns: 1fr 350px;
+  }
+  
+  .menu-items-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .pos-layout {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+  
+  .cart-section {
+    max-height: 400px;
+  }
+  
+  .menu-items-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .category-buttons {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+  }
+}
