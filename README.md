@@ -92,34 +92,40 @@ Frontend will run on: **http://localhost:5173**
 
 ```
 Coqui-POS/
+├── backend/
+│   ├── app.py                  # Flask API server (all endpoints)
+│   ├── requirements.txt        # Python dependencies
+│   └── database/               # Data storage
+│       ├── Coqui.db           # SQLite database
+│       ├── orders.json        # Order history (auto-created)
+│       └── sales.json         # Sales stats (auto-created)
+│
 ├── frontend/
 │   ├── src/
-│   │   ├── components/         # React components
-│   │   │   ├── Login.jsx       # Login screen
-│   │   │   ├── Header.jsx      # Top navigation
-│   │   │   ├── MenuItem.jsx    # Menu item cards
-│   │   │   ├── MenuPanel.jsx   # Category navigation & items
-│   │   │   ├── OrderCart.jsx   # Order summary & cart
+│   │   ├── components/        # React components
+│   │   │   ├── Login.jsx      # Login screen
+│   │   │   ├── Header.jsx     # Top navigation
+│   │   │   ├── MenuItem.jsx   # Menu item cards
+│   │   │   ├── MenuPanel.jsx  # Category navigation
+│   │   │   ├── OrderCart.jsx  # Order summary & cart
 │   │   │   ├── PaymentModal.jsx # Payment processing
-│   │   │   ├── SalesDashboard.jsx # Manager sales analytics
-│   │   │   └── POSScreen.jsx   # Main POS interface
+│   │   │   ├── SalesDashboard.jsx # Manager analytics
+│   │   │   └── POSScreen.jsx  # Main POS interface
 │   │   ├── data/
-│   │   │   └── menuData.js     # Menu items database
+│   │   │   └── menuData.js    # Menu items & categories
 │   │   ├── styles/
-│   │   │   └── main.css        # All styling
-│   │   ├── assets/             # Logo images
-│   │   ├── App.jsx             # App entry point
-│   │   └── main.jsx            # React initialization
-│   └── package.json
+│   │   │   └── main.css       # All styling
+│   │   ├── assets/
+│   │   │   ├── coqui-logo-light.png
+│   │   │   └── coqui-logo-dark.png
+│   │   ├── App.jsx            # App entry point
+│   │   └── main.jsx           # React initialization
+│   ├── index.html             # HTML template
+│   ├── package.json           # Dependencies
+│   ├── vite.config.js         # Build config
+│   └── eslint.config.js       # Linting rules
 │
-├── backend/
-│   ├── app.py                  # Flask API server
-│   ├── requirements.txt        # Python dependencies
-│   └── database/               # JSON data storage
-│       ├── orders.json         # All orders
-│       └── sales.json          # Sales statistics
-│
-└── README.md
+└── README.md                   # Documentation
 ```
 
 ## 🎨 Customization Guide
