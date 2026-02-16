@@ -17,6 +17,8 @@ export default function SalesDashboard({ onClose }) {
   const [managerPassword, setManagerPassword] = useState("");
   const [viewMode, setViewMode] = useState("day"); // 'day', 'week', 'month'
   const [selectedWeek, setSelectedWeek] = useState(1); // 1-4
+  const [selectedDay, setSelectedDay] = useState(new Date().getDate()); // 1-31
+  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1); // 1-12
   const [salesData, setSalesData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -27,7 +29,7 @@ export default function SalesDashboard({ onClose }) {
   const handleAuthorization = () => {
     if (managerPassword === "admin123") {
       setIsAuthorized(true);
-      fetchSalesData("day");
+      fetchSalesData("day", null, selectedDay);
     } else {
       alert("Incorrect manager password!");
       setManagerPassword("");
@@ -37,7 +39,7 @@ export default function SalesDashboard({ onClose }) {
   // ============================================
   // FETCH SALES DATA FROM BACKEND
   // ============================================
-  const fetchSalesData = async (mode, week = null) => {
+  const fetchSalesData = async (mode, week = null, day = null, month = null) => {
     setLoading(true);
     setError(null);
     
@@ -45,11 +47,11 @@ export default function SalesDashboard({ onClose }) {
       let endpoint = "http://localhost:5000/api/sales/stats";
       
       if (mode === "day") {
-        endpoint = "http://localhost:5000/api/sales/today";
+        endpoint = `http://localhost:5000/api/sales/day?day=${day || selectedDay}`;
       } else if (mode === "week" && week) {
         endpoint = `http://localhost:5000/api/sales/week?week=${week}`;
       } else if (mode === "month") {
-        endpoint = "http://localhost:5000/api/sales/month";
+        endpoint = `http://localhost:5000/api/sales/month?month=${month || selectedMonth}`;
       }
       
       const response = await fetch(endpoint);
@@ -83,6 +85,16 @@ export default function SalesDashboard({ onClose }) {
   const handleWeekChange = (week) => {
     setSelectedWeek(week);
     fetchSalesData("week", week);
+  };
+
+  const handleDayChange = (day) => {
+    setSelectedDay(day);
+    fetchSalesData("day", null, day);
+  };
+
+  const handleMonthChange = (month) => {
+    setSelectedMonth(month);
+    fetchSalesData("month", null, null, month);
   };
 
   // ============================================
@@ -159,6 +171,26 @@ export default function SalesDashboard({ onClose }) {
         </div>
 
         {/* ============================================ */}
+        {/* DAY SELECTOR (only for daily view) */}
+        {/* ============================================ */}
+        {viewMode === "day" && (
+          <div className="day-selector">
+            <span>Select Day:</span>
+            <select 
+              value={selectedDay} 
+              onChange={(e) => handleDayChange(parseInt(e.target.value))}
+              className="day-select"
+            >
+              {Array.from({ length: 31 }, (_, i) => i + 1).map((day) => (
+                <option key={day} value={day}>
+                  Day {day}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
+
+        {/* ============================================ */}
         {/* WEEK SELECTOR (only for weekly view) */}
         {/* ============================================ */}
         {viewMode === "week" && (
@@ -173,6 +205,33 @@ export default function SalesDashboard({ onClose }) {
                 Week {week}
               </button>
             ))}
+          </div>
+        )}
+
+        {/* ============================================ */}
+        {/* MONTH SELECTOR (only for monthly view) */}
+        {/* ============================================ */}
+        {viewMode === "month" && (
+          <div className="month-selector">
+            <span>Select Month:</span>
+            <select 
+              value={selectedMonth} 
+              onChange={(e) => handleMonthChange(parseInt(e.target.value))}
+              className="month-select"
+            >
+              <option value={1}>January</option>
+              <option value={2}>February</option>
+              <option value={3}>March</option>
+              <option value={4}>April</option>
+              <option value={5}>May</option>
+              <option value={6}>June</option>
+              <option value={7}>July</option>
+              <option value={8}>August</option>
+              <option value={9}>September</option>
+              <option value={10}>October</option>
+              <option value={11}>November</option>
+              <option value={12}>December</option>
+            </select>
           </div>
         )}
 

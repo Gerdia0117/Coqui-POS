@@ -258,6 +258,45 @@ def get_today_sales():
             'message': str(e)
         }), 500
 
+@app.route('/api/sales/day', methods=['GET'])
+def get_specific_day_sales():
+    """Get sales for a specific day of current month"""
+    try:
+        day = request.args.get('day', type=int)
+        if not day or day < 1 or day > 31:
+            return jsonify({
+                'status': 'error',
+                'message': 'Invalid day parameter'
+            }), 400
+        
+        sales = load_sales()
+        orders = load_orders()
+        
+        # Get current year and month
+        now = datetime.now()
+        year = now.year
+        month = now.month
+        
+        # Build date string
+        date_str = f"{year}-{month:02d}-{day:02d}"
+        day_sales = sales['sales_by_date'].get(date_str, {'revenue': 0, 'orders': 0})
+        
+        # Get popular items
+        popular_items = get_popular_items_data(orders)
+        
+        return jsonify({
+            'status': 'success',
+            'date': date_str,
+            'revenue': day_sales['revenue'],
+            'orders': day_sales['orders'],
+            'popularItems': popular_items
+        })
+    except Exception as e:
+        return jsonify({
+            'status': 'error',
+            'message': str(e)
+        }), 500
+
 @app.route('/api/sales/week', methods=['GET'])
 def get_week_sales():
     """Get weekly sales summary for a specific week of the current month"""
@@ -322,11 +361,22 @@ def get_month_sales():
         sales = load_sales()
         orders = load_orders()
         
-        # Get current month data
+        # Get month parameter or use current month
+        month = request.args.get('month', type=int)
         now = datetime.now()
         year = now.year
-        month = now.month
-        month_name = now.strftime('%B %Y')
+        
+        if not month:
+            month = now.month
+        elif month < 1 or month > 12:
+            return jsonify({
+                'status': 'error',
+                'message': 'Invalid month parameter'
+            }), 400
+        
+        # Get month name
+        from calendar import month_name as month_names
+        month_name = f"{month_names[month]} {year}"
         
         # Calculate monthly totals
         month_revenue = 0
