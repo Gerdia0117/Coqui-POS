@@ -69,7 +69,7 @@ export default function PaymentModal({
   };
 
   // Complete Payment
-  const completePayment = (method) => {
+  const completePayment = async (method) => {
     const receipt = {
       orderId: `ORD-${Date.now()}`,
       items: orderItems,
@@ -82,6 +82,28 @@ export default function PaymentModal({
       change: method === "cash" ? change : null,
       timestamp: new Date().toLocaleString()
     };
+    
+    // ============================================
+    // SEND ORDER TO BACKEND
+    // ============================================
+    try {
+      const response = await fetch('http://localhost:5000/api/orders', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(receipt)
+      });
+      
+      if (response.ok) {
+        console.log('✅ Order saved to backend successfully');
+      } else {
+        console.warn('⚠️ Failed to save order to backend');
+      }
+    } catch (error) {
+      console.warn('⚠️ Backend not available:', error.message);
+      // Continue anyway - for demo, backend is optional
+    }
     
     setLastReceipt(receipt);
     setPaymentCompleted(true);
