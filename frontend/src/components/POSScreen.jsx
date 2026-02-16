@@ -12,6 +12,7 @@ import Header from "./Header";
 import MenuPanel from "./MenuPanel";
 import OrderCart from "./OrderCart";
 import PaymentModal from "./PaymentModal";
+import SalesDashboard from "./SalesDashboard";
 
 export default function POSScreen({
   userRole,
@@ -24,6 +25,7 @@ export default function POSScreen({
   // ============================================
   const [orderItems, setOrderItems] = useState([]);
   const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [showSalesDashboard, setShowSalesDashboard] = useState(false);
 
   // ============================================
   // ORDER MANAGEMENT FUNCTIONS
@@ -92,6 +94,15 @@ export default function POSScreen({
     setOrderItems([]);
   };
 
+  // Open/Close Sales Dashboard
+  const handleOpenSalesDashboard = () => {
+    setShowSalesDashboard(true);
+  };
+
+  const handleCloseSalesDashboard = () => {
+    setShowSalesDashboard(false);
+  };
+
   // ============================================
   // CALCULATE TOTALS
   // ============================================
@@ -115,6 +126,7 @@ export default function POSScreen({
         darkMode={darkMode}
         setDarkMode={setDarkMode}
         onLogout={onLogout}
+        onOpenSalesDashboard={handleOpenSalesDashboard}
       />
 
       {/* ============================================ */}
@@ -157,6 +169,13 @@ export default function POSScreen({
           onClose={handleClosePayment}
           onCompletePayment={handleCompletePayment}
         />
+      )}
+
+      {/* ============================================ */}
+      {/* SALES DASHBOARD MODAL (Manager Only) */}
+      {/* ============================================ */}
+      {showSalesDashboard && (
+        <SalesDashboard onClose={handleCloseSalesDashboard} />
       )}
     </div>
   );

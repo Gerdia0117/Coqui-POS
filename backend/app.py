@@ -68,6 +68,30 @@ def save_sales(sales):
     with open(SALES_FILE, 'w') as f:
         json.dump(sales, f, indent=2)
 
+def get_popular_items_data(orders):
+    """Helper function to get popular items from orders"""
+    item_counts = {}
+    
+    for order in orders:
+        if order.get('refunded'):
+            continue  # Skip refunded orders
+        for item in order.get('items', []):
+            item_name = item.get('name')
+            quantity = item.get('quantity', 1)
+            
+            if item_name in item_counts:
+                item_counts[item_name] += quantity
+            else:
+                item_counts[item_name] = quantity
+    
+    # Sort by popularity
+    popular = sorted(item_counts.items(), key=lambda x: x[1], reverse=True)
+    
+    return [
+        {'name': name, 'timesOrdered': count}
+        for name, count in popular[:10]  # Top 10
+    ]
+
 # ============================================
 # API ROUTES
 # ============================================
@@ -217,11 +241,136 @@ def get_today_sales():
         today = datetime.now().strftime('%Y-%m-%d')
         today_sales = sales['sales_by_date'].get(today, {'revenue': 0, 'orders': 0})
         
+        # Get popular items
+        orders = load_orders()
+        popular_items = get_popular_items_data(orders)
+        
         return jsonify({
             'status': 'success',
             'date': today,
             'revenue': today_sales['revenue'],
-            'orders': today_sales['orders']
+            'orders': today_sales['orders'],
+            'popularItems': popular_items
+        })
+    except Exception as e:
+        return jsonify({
+            'status': 'error',
+            'message': str(e)
+        }), 500
+
+@app.route('/api/sales/week', methods=['GET'])
+def get_week_sales():
+    """Get weekly sales summary for a specific week of the current month"""
+    try:
+        week_num = request.args.get('week', 1, type=int)
+        sales = load_sales()
+        orders = load_orders()
+        
+        # Calculate week dates
+        from calendar import monthrange
+        now = datetime.now()
+        year = now.year
+        month = now.month
+        
+        # Calculate start and end dates for the week
+        days_in_month = monthrange(year, month)[1]
+        week_start = ((week_num - 1) * 7) + 1
+        week_end = min(week_num * 7, days_in_month)
+        
+        # Collect sales for the week
+        week_revenue = 0
+        week_orders = 0
+        daily_breakdown = []
+        
+        for day in range(week_start, week_end + 1):
+            date_str = f"{year}-{month:02d}-{day:02d}"
+            day_sales = sales['sales_by_date'].get(date_str, {'revenue': 0, 'orders': 0})
+            week_revenue += day_sales['revenue']
+            week_orders += day_sales['orders']
+            
+            if day_sales['orders'] > 0:  # Only include days with sales
+                daily_breakdown.append({
+                    'date': date_str,
+                    'revenue': day_sales['revenue'],
+                    'orders': day_sales['orders']
+                })
+        
+        # Get popular items
+        popular_items = get_popular_items_data(orders)
+        
+        return jsonify({
+            'status': 'success',
+            'weekData': {
+                'week': week_num,
+                'dateRange': f"{year}-{month:02d}-{week_start:02d} to {year}-{month:02d}-{week_end:02d}",
+                'revenue': week_revenue,
+                'orders': week_orders,
+                'dailyBreakdown': daily_breakdown
+            },
+            'popularItems': popular_items
+        })
+    except Exception as e:
+        return jsonify({
+            'status': 'error',
+            'message': str(e)
+        }), 500
+
+@app.route('/api/sales/month', methods=['GET'])
+def get_month_sales():
+    """Get monthly sales summary"""
+    try:
+        sales = load_sales()
+        orders = load_orders()
+        
+        # Get current month data
+        now = datetime.now()
+        year = now.year
+        month = now.month
+        month_name = now.strftime('%B %Y')
+        
+        # Calculate monthly totals
+        month_revenue = 0
+        month_orders = 0
+        weekly_breakdown = []
+        
+        # Calculate sales for each week
+        from calendar import monthrange
+        days_in_month = monthrange(year, month)[1]
+        
+        for week in range(1, 5):  # 4 weeks
+            week_start = ((week - 1) * 7) + 1
+            week_end = min(week * 7, days_in_month)
+            
+            week_revenue = 0
+            week_orders = 0
+            
+            for day in range(week_start, week_end + 1):
+                date_str = f"{year}-{month:02d}-{day:02d}"
+                day_sales = sales['sales_by_date'].get(date_str, {'revenue': 0, 'orders': 0})
+                week_revenue += day_sales['revenue']
+                week_orders += day_sales['orders']
+            
+            month_revenue += week_revenue
+            month_orders += week_orders
+            
+            weekly_breakdown.append({
+                'week': week,
+                'revenue': week_revenue,
+                'orders': week_orders
+            })
+        
+        # Get popular items
+        popular_items = get_popular_items_data(orders)
+        
+        return jsonify({
+            'status': 'success',
+            'monthData': {
+                'month': month_name,
+                'revenue': month_revenue,
+                'orders': month_orders,
+                'weeklyBreakdown': weekly_breakdown
+            },
+            'popularItems': popular_items
         })
     except Exception as e:
         return jsonify({
@@ -300,28 +449,11 @@ def get_popular_items():
     """Get most popular menu items"""
     try:
         orders = load_orders()
-        item_counts = {}
-        
-        # Count how many times each item was ordered
-        for order in orders:
-            for item in order.get('items', []):
-                item_name = item.get('name')
-                quantity = item.get('quantity', 1)
-                
-                if item_name in item_counts:
-                    item_counts[item_name] += quantity
-                else:
-                    item_counts[item_name] = quantity
-        
-        # Sort by popularity
-        popular = sorted(item_counts.items(), key=lambda x: x[1], reverse=True)
+        popular_items = get_popular_items_data(orders)
         
         return jsonify({
             'status': 'success',
-            'popularItems': [
-                {'name': name, 'timesOrdered': count}
-                for name, count in popular[:10]  # Top 10
-            ]
+            'popularItems': popular_items
         })
         
     except Exception as e:

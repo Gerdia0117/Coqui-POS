@@ -1,7 +1,7 @@
 import lightLogo from "../assets/coqui-logo-light.png";
 import darkLogo from "../assets/coqui-logo-dark.png";
 
-export default function Header({ userRole, darkMode, setDarkMode, onLogout }) {
+export default function Header({ userRole, darkMode, setDarkMode, onLogout, onOpenSalesDashboard }) {
   return (
     <div className="header">
       <img
@@ -12,6 +12,17 @@ export default function Header({ userRole, darkMode, setDarkMode, onLogout }) {
 
       <div className="header-right">
         <span>Role: {userRole}</span>
+        
+        {/* Sales Dashboard Button (Manager Only) */}
+        {userRole === "Manager" && (
+          <button 
+            className="sales-dashboard-btn"
+            onClick={onOpenSalesDashboard}
+          >
+            📊 Sales
+          </button>
+        )}
+        
         <button onClick={() => setDarkMode(!darkMode)}>
           {darkMode ? "Light Mode" : "Dark Mode"}
         </button>
