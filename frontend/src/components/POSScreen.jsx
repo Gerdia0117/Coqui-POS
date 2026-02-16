@@ -103,6 +103,15 @@ export default function POSScreen({
     setShowSalesDashboard(false);
   };
 
+  // Handle logo click - return to home
+  const handleLogoClick = () => {
+    // Close any open modals
+    setShowPaymentModal(false);
+    setShowSalesDashboard(false);
+    // Optionally clear the current order (uncomment if desired)
+    // setOrderItems([]);
+  };
+
   // ============================================
   // CALCULATE TOTALS
   // ============================================
@@ -127,6 +136,7 @@ export default function POSScreen({
         setDarkMode={setDarkMode}
         onLogout={onLogout}
         onOpenSalesDashboard={handleOpenSalesDashboard}
+        onLogoClick={handleLogoClick}
       />
 
       {/* ============================================ */}

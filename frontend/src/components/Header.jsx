@@ -1,13 +1,15 @@
 import lightLogo from "../assets/coqui-logo-light.png";
 import darkLogo from "../assets/coqui-logo-dark.png";
 
-export default function Header({ userRole, darkMode, setDarkMode, onLogout, onOpenSalesDashboard }) {
+export default function Header({ userRole, darkMode, setDarkMode, onLogout, onOpenSalesDashboard, onLogoClick }) {
   return (
     <div className="header">
       <img
         src={darkMode ? darkLogo : lightLogo}
         alt="Coquí Logo"
-        className="logo-small"
+        className="logo-small clickable"
+        onClick={onLogoClick}
+        title="Back to Home"
       />
 
       <div className="header-right">

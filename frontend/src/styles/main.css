@@ -125,6 +125,16 @@ button:disabled {
   height: 50px;
 }
 
+.logo-small.clickable {
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.logo-small.clickable:hover {
+  transform: scale(1.05);
+  opacity: 0.8;
+}
+
 .header-right {
   display: flex;
   align-items: center;
