@@ -29,9 +29,11 @@ A modern, feature-rich Point of Sale system built for Demo Day presentation.
 - All actions accessible after payment
 
 ### 🔒 Manager Features
-- Refund processing (requires manager password)
-- Manager authorization system
-- Role-based access control
+- **Sales Dashboard:** View daily, weekly, and monthly sales reports
+- **Week-by-Week Analysis:** Select Week 1, 2, 3, or 4 of current month
+- **Popular Items Analytics:** See top-selling menu items
+- **Refund Processing:** Process refunds with manager authorization
+- **Role-based Access Control:** Manager-only features
 
 ### 📊 Backend Data Storage
 - Automatic order saving to backend
@@ -99,6 +101,7 @@ Coqui-POS/
 │   │   │   ├── MenuPanel.jsx   # Category navigation & items
 │   │   │   ├── OrderCart.jsx   # Order summary & cart
 │   │   │   ├── PaymentModal.jsx # Payment processing
+│   │   │   ├── SalesDashboard.jsx # Manager sales analytics
 │   │   │   └── POSScreen.jsx   # Main POS interface
 │   │   ├── data/
 │   │   │   └── menuData.js     # Menu items database
@@ -138,13 +141,18 @@ Edit `frontend/src/components/POSScreen.jsx` line 102 (currently 11.5%)
 
 The backend provides these endpoints:
 
+**Orders:**
 - `POST /api/orders` - Create new order
-- `GET /api/orders` - Get all orders
+- `GET /api/orders` - Get all orders (with optional date/limit filters)
 - `GET /api/orders/:id` - Get specific order
-- `GET /api/sales/stats` - Get sales statistics
-- `GET /api/sales/today` - Get today's sales
-- `POST /api/orders/:id/refund` - Process refund
-- `GET /api/analytics/popular-items` - Get popular menu items
+- `POST /api/orders/:id/refund` - Process refund (requires manager password)
+
+**Sales & Analytics:**
+- `GET /api/sales/stats` - Get overall sales statistics
+- `GET /api/sales/today` - Get today's sales summary
+- `GET /api/sales/week?week=1` - Get weekly sales (week 1-4 of month)
+- `GET /api/sales/month` - Get monthly sales with weekly breakdown
+- `GET /api/analytics/popular-items` - Get top 10 popular menu items
 
 ## 💡 Demo Day Tips
 
@@ -162,14 +170,20 @@ The backend provides these endpoints:
    - Show tip calculation
    - Complete a payment (cash with change calculation)
    - Show all print buttons
+   - **Click 📊 Sales button** (Manager only)
+   - Show daily, weekly, and monthly sales views
+   - Demonstrate week selection (Week 1-4)
+   - Show popular items analytics
    - Demo refund (as manager)
 
 3. **Talking Points:**
    - Puerto Rican menu focus
    - Allergen & dietary information
-   - Manager authorization system
-   - Real-time calculations
-   - Organized data storage
+   - Complete sales tracking and analytics
+   - Manager dashboard with detailed reports
+   - Real-time calculations and data storage
+   - Week-by-week and monthly analysis
+   - Popular items tracking for inventory planning
 
 ## 🔧 Technical Stack
 
