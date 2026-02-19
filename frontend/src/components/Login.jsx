@@ -20,7 +20,7 @@ export default function Login({ onLogin, darkMode, setDarkMode }) {
     <div className={`login-page ${darkMode ? "dark" : ""}`}>
       <div className="login-card">
         <img
-          src={darkMode ? darkLogo : lightLogo}
+          src={darkLogo}
           alt="Coquí Logo"
           className="logo"
         />
