@@ -1,7 +1,7 @@
 import lightLogo from "../assets/coqui-logo-light.png";
 import darkLogo from "../assets/coqui-logo-dark.png";
 
-export default function Header({ userRole, darkMode, setDarkMode, onLogout, onOpenSalesDashboard, onLogoClick }) {
+export default function Header({ userRole, darkMode, setDarkMode, onLogout, onOpenSalesDashboard, onLogoClick, onOpenAIAssistant }) {
   return (
     <div className="header">
       <img
@@ -14,6 +14,14 @@ export default function Header({ userRole, darkMode, setDarkMode, onLogout, onOp
 
       <div className="header-right">
         <span>Role: {userRole}</span>
+        
+        {/* AI Assistant Button */}
+        <button 
+          className="ai-assistant-btn"
+          onClick={onOpenAIAssistant}
+        >
+          🤖 AI Assistant
+        </button>
         
         {/* Sales Dashboard Button (Manager Only) */}
         {userRole === "Manager" && (

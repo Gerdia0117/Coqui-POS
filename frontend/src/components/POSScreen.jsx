@@ -13,6 +13,7 @@ import MenuPanel from "./MenuPanel";
 import OrderCart from "./OrderCart";
 import PaymentModal from "./PaymentModal";
 import SalesDashboard from "./SalesDashboard";
+import AIAssistant from "./AIAssistant";
 
 export default function POSScreen({
   userRole,
@@ -26,6 +27,7 @@ export default function POSScreen({
   const [orderItems, setOrderItems] = useState([]);
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [showSalesDashboard, setShowSalesDashboard] = useState(false);
+  const [showAIAssistant, setShowAIAssistant] = useState(false);
 
   // ============================================
   // ORDER MANAGEMENT FUNCTIONS
@@ -103,11 +105,21 @@ export default function POSScreen({
     setShowSalesDashboard(false);
   };
 
+  // Open/Close AI Assistant
+  const handleOpenAIAssistant = () => {
+    setShowAIAssistant(true);
+  };
+
+  const handleCloseAIAssistant = () => {
+    setShowAIAssistant(false);
+  };
+
   // Handle logo click - return to home
   const handleLogoClick = () => {
     // Close any open modals
     setShowPaymentModal(false);
     setShowSalesDashboard(false);
+    setShowAIAssistant(false);
     // Optionally clear the current order (uncomment if desired)
     // setOrderItems([]);
   };
@@ -136,6 +148,7 @@ export default function POSScreen({
         setDarkMode={setDarkMode}
         onLogout={onLogout}
         onOpenSalesDashboard={handleOpenSalesDashboard}
+        onOpenAIAssistant={handleOpenAIAssistant}
         onLogoClick={handleLogoClick}
       />
 
@@ -186,6 +199,13 @@ export default function POSScreen({
       {/* ============================================ */}
       {showSalesDashboard && (
         <SalesDashboard onClose={handleCloseSalesDashboard} />
+      )}
+
+      {/* ============================================ */}
+      {/* AI ASSISTANT MODAL */}
+      {/* ============================================ */}
+      {showAIAssistant && (
+        <AIAssistant onClose={handleCloseAIAssistant} />
       )}
     </div>
   );
