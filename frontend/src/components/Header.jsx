@@ -5,7 +5,7 @@ export default function Header({ userRole, darkMode, setDarkMode, onLogout, onOp
   return (
     <div className="header">
       <img
-        src={darkMode ? darkLogo : lightLogo}
+        src={darkLogo}
         alt="Coquí Logo"
         className="logo-small clickable"
         onClick={onLogoClick}
