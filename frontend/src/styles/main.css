@@ -19,7 +19,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #e0f2fe, #f8fafc);
+  background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
 }
 
 .login-page.dark {
@@ -59,6 +59,8 @@ select {
   border-radius: 8px;
   border: 1px solid #ddd;
   font-size: 14px;
+  background: white;
+  color: black;
 }
 
 button {
@@ -92,7 +94,7 @@ button:disabled {
 /* ============================================ */
 .pos-page {
   min-height: 100vh;
-  background: #f1f5f9;
+  background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
   display: flex;
   flex-direction: column;
 }
@@ -197,7 +199,7 @@ button:disabled {
   gap: 8px;
   padding: 12px 20px;
   background: #f1f5f9;
-  color: #475569;
+  color: black;
   border-radius: 10px;
   border: 2px solid transparent;
   transition: all 0.2s;
@@ -221,7 +223,7 @@ button:disabled {
 .current-category-title {
   font-size: 24px;
   margin: 0 0 20px 0;
-  color: #1e293b;
+  color: black;
 }
 
 .pos-page.dark .current-category-title {
@@ -283,7 +285,7 @@ button:disabled {
 .item-header h3 {
   margin: 0;
   font-size: 18px;
-  color: #1e293b;
+  color: black;
 }
 
 .pos-page.dark .item-header h3 {
@@ -318,7 +320,7 @@ button:disabled {
 .sides-section strong {
   display: block;
   margin-bottom: 5px;
-  color: #1e293b;
+  color: black;
 }
 
 .pos-page.dark .allergen-section strong,
@@ -416,6 +418,7 @@ button:disabled {
 .cart-header h2 {
   margin: 0;
   font-size: 20px;
+  color: black;
 }
 
 .clear-order-btn {
@@ -442,7 +445,7 @@ button:disabled {
 }
 
 .cart-item {
-  background: #f8fafc;
+  background: #dbeafe;
   padding: 15px;
   border-radius: 10px;
   margin-bottom: 12px;
@@ -455,6 +458,7 @@ button:disabled {
 .cart-item-info h4 {
   margin: 0 0 5px 0;
   font-size: 16px;
+  color: black;
 }
 
 .cart-item-price {
@@ -497,6 +501,7 @@ button:disabled {
   text-align: center;
   font-weight: bold;
   font-size: 16px;
+  color: black;
 }
 
 .cart-item-total {
@@ -592,6 +597,7 @@ button:disabled {
 .payment-header h2 {
   margin: 0;
   font-size: 24px;
+  color: black;
 }
 
 .close-btn {
@@ -625,6 +631,7 @@ button:disabled {
 .card-payment-section h3 {
   margin: 0 0 15px 0;
   font-size: 18px;
+  color: black;
 }
 
 .summary-line {
@@ -632,6 +639,7 @@ button:disabled {
   justify-content: space-between;
   margin: 10px 0;
   font-size: 15px;
+  color: black;
 }
 
 .summary-line.total-line {
@@ -652,7 +660,7 @@ button:disabled {
 .tip-btn {
   padding: 12px;
   background: #f1f5f9;
-  color: #475569;
+  color: black;
   border: 2px solid transparent;
 }
 
@@ -725,6 +733,7 @@ button:disabled {
   border-radius: 10px;
   margin-bottom: 20px;
   font-size: 18px;
+  color: black;
 }
 
 .change-display span {
@@ -955,7 +964,7 @@ button:disabled {
 .dashboard-header h2 {
   margin: 0;
   font-size: 24px;
-  color: #1e293b;
+  color: black;
 }
 
 /* Authorization Section */
@@ -1003,7 +1012,7 @@ button:disabled {
   flex: 1;
   padding: 12px 20px;
   background: #f1f5f9;
-  color: #475569;
+  color: black;
   border: 2px solid transparent;
   border-radius: 8px;
   font-size: 15px;
@@ -1030,7 +1039,7 @@ button:disabled {
   gap: 10px;
   padding: 15px 30px;
   border-bottom: 1px solid #e2e8f0;
-  background: #f8fafc;
+  background: #e0f2fe;
 }
 
 .day-selector span,
@@ -1044,7 +1053,7 @@ button:disabled {
 .month-select {
   padding: 8px 16px;
   background: white;
-  color: #1e293b;
+  color: black;
   border: 2px solid #e2e8f0;
   border-radius: 6px;
   font-size: 14px;
@@ -1118,7 +1127,7 @@ button:disabled {
 .sales-summary h3 {
   margin: 0 0 20px 0;
   font-size: 20px;
-  color: #1e293b;
+  color: black;
 }
 
 .sales-summary h4 {
@@ -1203,7 +1212,7 @@ button:disabled {
 .breakdown-table td {
   padding: 12px 15px;
   border-top: 1px solid #e2e8f0;
-  color: #1e293b;
+  color: black;
   font-size: 14px;
 }
 
@@ -1215,14 +1224,14 @@ button:disabled {
 .popular-items-section {
   margin-top: 30px;
   padding: 20px;
-  background: #f8fafc;
+  background: #e0f2fe;
   border-radius: 12px;
 }
 
 .popular-items-section h4 {
   margin: 0 0 15px 0;
   font-size: 16px;
-  color: #1e293b;
+  color: black;
 }
 
 .popular-items-list {
@@ -1251,7 +1260,7 @@ button:disabled {
 .item-name {
   flex: 1;
   font-size: 15px;
-  color: #1e293b;
+  color: black;
   font-weight: 500;
 }
 
