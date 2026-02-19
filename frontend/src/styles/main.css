@@ -112,7 +112,7 @@ button:disabled {
   justify-content: space-between;
   align-items: center;
   padding: 15px 30px;
-  background: white;
+  background: #16a34a;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   position: sticky;
   top: 0;
@@ -146,6 +146,12 @@ button:disabled {
 .header-right button {
   padding: 8px 16px;
   font-size: 13px;
+  background: white;
+  color: #16a34a;
+}
+
+.header-right button:hover {
+  background: #f1f5f9;
 }
 
 /* ============================================ */
