@@ -44,7 +44,7 @@ export default function AIAssistant({ onClose }) {
       <div className="ai-assistant-modal">
         {/* Header */}
         <div className="ai-assistant-header">
-          <h2>🤖 AI Assistant</h2>
+          <h2>🐸 AI Assistant</h2>
           <button className="close-btn" onClick={onClose}>
             ✕
           </button>

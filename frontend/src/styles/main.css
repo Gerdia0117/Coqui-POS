@@ -1279,13 +1279,6 @@ button:disabled {
 /* ============================================ */
 /* AI ASSISTANT STYLES */
 /* ============================================ */
-.ai-assistant-btn {
-  background: #3b82f6 !important;
-}
-
-.ai-assistant-btn:hover {
-  background: #2563eb !important;
-}
 
 .ai-assistant-overlay {
   position: fixed;

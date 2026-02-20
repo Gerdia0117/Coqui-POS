@@ -17,10 +17,9 @@ export default function Header({ userRole, darkMode, setDarkMode, onLogout, onOp
         
         {/* AI Assistant Button */}
         <button 
-          className="ai-assistant-btn"
           onClick={onOpenAIAssistant}
         >
-          🤖 AI Assistant
+          🐸 AI Assistant
         </button>
         
         {/* Sales Dashboard Button (Manager Only) */}
