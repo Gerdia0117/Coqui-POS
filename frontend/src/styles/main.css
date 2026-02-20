@@ -147,7 +147,7 @@ button:disabled {
   padding: 8px 16px;
   font-size: 13px;
   background: white;
-  color: #16a34a;
+  color: black;
 }
 
 .header-right button:hover {
