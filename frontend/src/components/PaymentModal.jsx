@@ -19,7 +19,8 @@ export default function PaymentModal({
   total,
   userRole,
   onClose,
-  onCompletePayment 
+  onCompletePayment,
+  onSendToKitchen 
 }) {
   
   // ============================================
@@ -115,9 +116,13 @@ export default function PaymentModal({
   // PRINT HANDLERS
   // ============================================
   
-  // Print Order (Kitchen Order)
-  const handlePrintOrder = () => {
+  // Print Order (Kitchen Order) and create kitchen ticket
+  const handlePrintOrder = async () => {
     console.log("Printing kitchen order...");
+    // Create a kitchen ticket with timestamps
+    if (onSendToKitchen) {
+      await onSendToKitchen(orderItems);
+    }
     alert("Kitchen order sent to printer!\n\nOrder Items:\n" + 
       orderItems.map(item => `${item.quantity}x ${item.name}`).join("\n"));
   };
@@ -396,17 +401,6 @@ export default function PaymentModal({
           </div>
         )}
 
-        {/* ============================================ */}
-        {/* PRINT ORDER BUTTON (Always available) */}
-        {/* ============================================ */}
-        {!paymentCompleted && (
-          <button 
-            className="print-order-only-btn"
-            onClick={handlePrintOrder}
-          >
-            🖨️ Print Order (Kitchen)
-          </button>
-        )}
       </div>
     </div>
   );

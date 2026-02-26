@@ -1,7 +1,7 @@
 import lightLogo from "../assets/coqui-logo-light.png";
 import darkLogo from "../assets/coqui-logo-dark.png";
 
-export default function Header({ userRole, darkMode, setDarkMode, onLogout, onOpenSalesDashboard, onLogoClick, onOpenAIAssistant }) {
+export default function Header({ userRole, darkMode, setDarkMode, onOpenSalesDashboard, onLogoClick, onOpenAIAssistant, onProceedToPayment, onOpenTickets, onOpenVoidLog }) {
   return (
     <div className="header">
       <img
@@ -13,7 +13,9 @@ export default function Header({ userRole, darkMode, setDarkMode, onLogout, onOp
       />
 
       <div className="header-right">
-        <span>Role: {userRole}</span>
+        <span className="role-badge">
+          {userRole === "Manager" ? "👔" : "🧑‍💼"} {userRole}
+        </span>
         
         {/* AI Assistant Button */}
         <button 
@@ -32,10 +34,24 @@ export default function Header({ userRole, darkMode, setDarkMode, onLogout, onOp
           </button>
         )}
         
+        {/* Void Log Button (Manager Only) */}
+        {userRole === "Manager" && (
+          <button onClick={onOpenVoidLog}>
+            🚫 Void Log
+          </button>
+        )}
+        
+        {/* Kitchen Tickets Button */}
+        <button onClick={onOpenTickets}>
+          🎫 Tickets
+        </button>
+        
         <button onClick={() => setDarkMode(!darkMode)}>
           {darkMode ? "Light Mode" : "Dark Mode"}
         </button>
-        <button onClick={onLogout}>Logout</button>
+        <button className="payment-header-btn" onClick={onProceedToPayment}>
+          💳 Payment
+        </button>
       </div>
     </div>
   );

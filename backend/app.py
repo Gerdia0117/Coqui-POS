@@ -24,6 +24,8 @@ CORS(app)  # Enable CORS for frontend communication
 DATA_DIR = os.path.join(os.path.dirname(__file__), 'database')
 ORDERS_FILE = os.path.join(DATA_DIR, 'orders.json')
 SALES_FILE = os.path.join(DATA_DIR, 'sales.json')
+TICKETS_FILE = os.path.join(DATA_DIR, 'tickets.json')
+VOIDS_FILE = os.path.join(DATA_DIR, 'voids.json')
 
 # Ensure data directory exists
 if not os.path.exists(DATA_DIR):
@@ -37,6 +39,14 @@ if not os.path.exists(ORDERS_FILE):
 if not os.path.exists(SALES_FILE):
     with open(SALES_FILE, 'w') as f:
         json.dump({'total_sales': 0, 'total_orders': 0, 'sales_by_date': {}}, f)
+
+if not os.path.exists(TICKETS_FILE):
+    with open(TICKETS_FILE, 'w') as f:
+        json.dump([], f)
+
+if not os.path.exists(VOIDS_FILE):
+    with open(VOIDS_FILE, 'w') as f:
+        json.dump([], f)
 
 # ============================================
 # HELPER FUNCTIONS
@@ -67,6 +77,32 @@ def save_sales(sales):
     """Save sales data to JSON file"""
     with open(SALES_FILE, 'w') as f:
         json.dump(sales, f, indent=2)
+
+def load_tickets():
+    """Load tickets from JSON file"""
+    try:
+        with open(TICKETS_FILE, 'r') as f:
+            return json.load(f)
+    except:
+        return []
+
+def save_tickets(tickets):
+    """Save tickets to JSON file"""
+    with open(TICKETS_FILE, 'w') as f:
+        json.dump(tickets, f, indent=2)
+
+def load_voids():
+    """Load void log from JSON file"""
+    try:
+        with open(VOIDS_FILE, 'r') as f:
+            return json.load(f)
+    except:
+        return []
+
+def save_voids(voids):
+    """Save void log to JSON file"""
+    with open(VOIDS_FILE, 'w') as f:
+        json.dump(voids, f, indent=2)
 
 def get_popular_items_data(orders):
     """Helper function to get popular items from orders"""
@@ -489,6 +525,217 @@ def refund_order(order_id):
             'status': 'error',
             'message': str(e)
         }), 500
+
+# ============================================
+# KITCHEN TICKET ROUTES
+# ============================================
+
+@app.route('/api/tickets', methods=['POST'])
+def create_ticket():
+    """Create a new kitchen ticket when order is sent to kitchen"""
+    try:
+        data = request.json
+        now = datetime.now().isoformat()
+
+        ticket = {
+            'ticketId': f"TKT-{int(datetime.now().timestamp() * 1000)}",
+            'items': [
+                {
+                    'name': item.get('name'),
+                    'quantity': item.get('quantity', 1),
+                    'sentAt': now
+                }
+                for item in data.get('items', [])
+            ],
+            'createdAt': now,
+            'status': 'open',
+            'closedAt': None,
+            'sentBy': data.get('sentBy', 'Employee')
+        }
+
+        tickets = load_tickets()
+        tickets.append(ticket)
+        save_tickets(tickets)
+
+        return jsonify({
+            'status': 'success',
+            'message': 'Kitchen ticket created',
+            'ticketId': ticket['ticketId']
+        }), 201
+
+    except Exception as e:
+        return jsonify({'status': 'error', 'message': str(e)}), 500
+
+@app.route('/api/tickets', methods=['GET'])
+def get_tickets():
+    """Get all tickets, optionally filtered by status"""
+    try:
+        tickets = load_tickets()
+        status_filter = request.args.get('status')
+
+        if status_filter:
+            tickets = [t for t in tickets if t.get('status') == status_filter]
+
+        return jsonify({
+            'status': 'success',
+            'count': len(tickets),
+            'tickets': tickets
+        })
+
+    except Exception as e:
+        return jsonify({'status': 'error', 'message': str(e)}), 500
+
+@app.route('/api/tickets/<ticket_id>', methods=['GET'])
+def get_ticket(ticket_id):
+    """Get a single ticket with full detail"""
+    try:
+        tickets = load_tickets()
+        ticket = next((t for t in tickets if t.get('ticketId') == ticket_id), None)
+
+        if ticket:
+            return jsonify({'status': 'success', 'ticket': ticket})
+        else:
+            return jsonify({'status': 'error', 'message': 'Ticket not found'}), 404
+
+    except Exception as e:
+        return jsonify({'status': 'error', 'message': str(e)}), 500
+
+@app.route('/api/tickets/<ticket_id>/close', methods=['PATCH'])
+def close_ticket(ticket_id):
+    """Close a kitchen ticket (called when order is paid)"""
+    try:
+        tickets = load_tickets()
+        ticket = next((t for t in tickets if t.get('ticketId') == ticket_id), None)
+
+        if not ticket:
+            return jsonify({'status': 'error', 'message': 'Ticket not found'}), 404
+
+        ticket['status'] = 'closed'
+        ticket['closedAt'] = datetime.now().isoformat()
+        save_tickets(tickets)
+
+        return jsonify({
+            'status': 'success',
+            'message': 'Ticket closed',
+            'ticketId': ticket_id
+        })
+
+    except Exception as e:
+        return jsonify({'status': 'error', 'message': str(e)}), 500
+
+# ============================================
+# VOID ROUTES
+# ============================================
+
+@app.route('/api/tickets/<ticket_id>/void-item', methods=['PATCH'])
+def void_ticket_item(ticket_id):
+    """Void a single item from a ticket (requires manager password)"""
+    try:
+        data = request.json
+        if data.get('managerPassword') != 'admin123':
+            return jsonify({'status': 'error', 'message': 'Invalid manager password'}), 403
+
+        item_index = data.get('itemIndex')
+        if item_index is None:
+            return jsonify({'status': 'error', 'message': 'itemIndex required'}), 400
+
+        tickets = load_tickets()
+        ticket = next((t for t in tickets if t.get('ticketId') == ticket_id), None)
+
+        if not ticket:
+            return jsonify({'status': 'error', 'message': 'Ticket not found'}), 404
+
+        if item_index < 0 or item_index >= len(ticket['items']):
+            return jsonify({'status': 'error', 'message': 'Invalid item index'}), 400
+
+        voided_item = ticket['items'].pop(item_index)
+        now = datetime.now().isoformat()
+
+        # Log the void
+        voids = load_voids()
+        voids.append({
+            'voidId': f"VOID-{int(datetime.now().timestamp() * 1000)}",
+            'type': 'item',
+            'ticketId': ticket_id,
+            'item': voided_item,
+            'voidedAt': now,
+            'voidedBy': data.get('voidedBy', 'Manager'),
+            'originalSentBy': ticket.get('sentBy', 'Unknown'),
+            'reason': data.get('reason', '')
+        })
+        save_voids(voids)
+
+        # If no items left, void the whole ticket
+        if len(ticket['items']) == 0:
+            ticket['status'] = 'voided'
+            ticket['voidedAt'] = now
+
+        save_tickets(tickets)
+
+        return jsonify({
+            'status': 'success',
+            'message': f"Item '{voided_item.get('name')}' voided",
+            'voidedItem': voided_item
+        })
+
+    except Exception as e:
+        return jsonify({'status': 'error', 'message': str(e)}), 500
+
+@app.route('/api/tickets/<ticket_id>/void', methods=['PATCH'])
+def void_ticket(ticket_id):
+    """Void an entire ticket (requires manager password)"""
+    try:
+        data = request.json
+        if data.get('managerPassword') != 'admin123':
+            return jsonify({'status': 'error', 'message': 'Invalid manager password'}), 403
+
+        tickets = load_tickets()
+        ticket = next((t for t in tickets if t.get('ticketId') == ticket_id), None)
+
+        if not ticket:
+            return jsonify({'status': 'error', 'message': 'Ticket not found'}), 404
+
+        now = datetime.now().isoformat()
+
+        # Log the void
+        voids = load_voids()
+        voids.append({
+            'voidId': f"VOID-{int(datetime.now().timestamp() * 1000)}",
+            'type': 'ticket',
+            'ticketId': ticket_id,
+            'items': ticket.get('items', []),
+            'voidedAt': now,
+            'voidedBy': data.get('voidedBy', 'Manager'),
+            'originalSentBy': ticket.get('sentBy', 'Unknown'),
+            'reason': data.get('reason', '')
+        })
+        save_voids(voids)
+
+        ticket['status'] = 'voided'
+        ticket['voidedAt'] = now
+        save_tickets(tickets)
+
+        return jsonify({
+            'status': 'success',
+            'message': 'Ticket voided',
+            'ticketId': ticket_id
+        })
+
+    except Exception as e:
+        return jsonify({'status': 'error', 'message': str(e)}), 500
+
+@app.route('/api/voids', methods=['GET'])
+def get_voids():
+    """Get all void records (manager only)"""
+    try:
+        voids = load_voids()
+        return jsonify({
+            'status': 'success',
+            'count': len(voids),
+            'voids': voids
+        })
+    except Exception as e:
+        return jsonify({'status': 'error', 'message': str(e)}), 500
 
 # ============================================
 # MENU ITEM ANALYTICS

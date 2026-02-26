@@ -13,7 +13,7 @@ export default function OrderCart({
   onUpdateQuantity, 
   onRemoveItem, 
   onClearOrder,
-  onProceedToPayment 
+  onSendToKitchen 
 }) {
   
   // ============================================
@@ -117,13 +117,13 @@ export default function OrderCart({
           </div>
 
           {/* ============================================ */}
-          {/* PROCEED TO PAYMENT BUTTON */}
+          {/* SEND TO KITCHEN BUTTON */}
           {/* ============================================ */}
           <button
-            className="proceed-payment-btn"
-            onClick={onProceedToPayment}
+            className="send-kitchen-btn"
+            onClick={() => onSendToKitchen(orderItems)}
           >
-            Proceed to Payment →
+            🖨️ Send to Kitchen
           </button>
         </div>
       )}

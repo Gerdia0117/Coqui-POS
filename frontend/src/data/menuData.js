@@ -289,6 +289,132 @@ export const menuData = {
       ingredients: ["Cream Cheese", "Puff Pastry", "Sugar", "Vanilla"],
       sides: []
     }
+  ],
+
+  // ============================================
+  // SIDES CATEGORY
+  // ============================================
+  sides: [
+    {
+      id: "side-1",
+      name: "White Rice",
+      price: 3.99,
+      category: "sides",
+      image: "/images/white-rice.jpg",
+      description: "Fluffy steamed white rice",
+      allergens: [],
+      proteins: [],
+      ingredients: ["Long Grain Rice", "Water", "Olive Oil", "Salt"],
+      sides: []
+    },
+    {
+      id: "side-2",
+      name: "Rice & Beans",
+      price: 4.99,
+      category: "sides",
+      image: "/images/rice-and-beans.jpg",
+      description: "Traditional Puerto Rican rice with pink beans",
+      allergens: [],
+      proteins: [],
+      ingredients: ["Rice", "Pink Beans", "Sofrito", "Ham", "Olives", "Annatto Oil"],
+      sides: []
+    },
+    {
+      id: "side-3",
+      name: "Tostones",
+      price: 4.49,
+      category: "sides",
+      image: "/images/tostones-side.jpg",
+      description: "Crispy twice-fried green plantain slices",
+      allergens: [],
+      proteins: [],
+      ingredients: ["Green Plantains", "Vegetable Oil", "Salt"],
+      sides: []
+    },
+    {
+      id: "side-4",
+      name: "Maduros",
+      price: 4.49,
+      category: "sides",
+      image: "/images/maduros.jpg",
+      description: "Sweet fried ripe plantains",
+      allergens: [],
+      proteins: [],
+      ingredients: ["Ripe Plantains", "Vegetable Oil", "Salt"],
+      sides: []
+    },
+    {
+      id: "side-5",
+      name: "Black Beans",
+      price: 3.99,
+      category: "sides",
+      image: "/images/black-beans.jpg",
+      description: "Slow-cooked black beans with sofrito",
+      allergens: [],
+      proteins: [],
+      ingredients: ["Black Beans", "Sofrito", "Garlic", "Cumin", "Bay Leaf", "Olive Oil"],
+      sides: []
+    },
+    {
+      id: "side-6",
+      name: "Mashed Potatoes",
+      price: 4.49,
+      category: "sides",
+      image: "/images/mashed-potatoes.jpg",
+      description: "Creamy garlic mashed potatoes",
+      allergens: ["dairy"],
+      proteins: [],
+      ingredients: ["Potatoes", "Butter", "Milk", "Garlic", "Salt", "Pepper"],
+      sides: []
+    },
+    {
+      id: "side-7",
+      name: "Grilled Vegetables",
+      price: 4.99,
+      category: "sides",
+      image: "/images/grilled-vegetables.jpg",
+      description: "Seasonal vegetables grilled with herbs",
+      allergens: [],
+      proteins: [],
+      ingredients: ["Zucchini", "Bell Peppers", "Onions", "Mushrooms", "Olive Oil", "Herbs"],
+      sides: []
+    },
+    {
+      id: "side-8",
+      name: "Yuca Frita",
+      price: 5.49,
+      category: "sides",
+      image: "/images/yuca-frita.jpg",
+      description: "Crispy fried cassava with garlic dipping sauce",
+      allergens: [],
+      proteins: [],
+      ingredients: ["Yuca (Cassava)", "Vegetable Oil", "Garlic", "Salt", "Lime"],
+      sides: []
+    },
+    {
+      id: "side-9",
+      name: "Ensalada Verde",
+      price: 3.99,
+      category: "sides",
+      image: "/images/ensalada-verde.jpg",
+      description: "Simple green salad with vinaigrette",
+      allergens: [],
+      proteins: [],
+      ingredients: ["Mixed Greens", "Tomatoes", "Cucumbers", "Red Onion", "Olive Oil", "Vinegar"],
+      sides: []
+    },
+    {
+      id: "side-10",
+      name: "Amarillos con Queso",
+      price: 5.99,
+      category: "sides",
+      image: "/images/amarillos-queso.jpg",
+      description: "Sweet plantains topped with melted white cheese",
+      allergens: ["dairy"],
+      proteins: [],
+      ingredients: ["Ripe Plantains", "White Cheese", "Vegetable Oil", "Salt"],
+      sides: []
+    }
   ]
 };
 
@@ -300,6 +426,7 @@ export const categories = [
   { key: "appetizers", label: "Appetizers", icon: "🍤" },
   { key: "salads", label: "Salads", icon: "🥗" },
   { key: "mainCourse", label: "Main Course", icon: "🍽️" },
+  { key: "sides", label: "Sides", icon: "🥔" },
   { key: "desserts", label: "Desserts", icon: "🍰" }
 ];
 
