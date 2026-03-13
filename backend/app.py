@@ -1086,30 +1086,68 @@ def get_fallback_response(message, user_role='Employee'):
     message_lower = message.lower()
     
     # Block manager info for employees
-    if user_role == 'Employee' and any(word in message_lower for word in ['manager', 'password', 'admin', 'void', 'analytics', 'sales dashboard']):
+    if user_role == 'Employee' and any(word in message_lower for word in ['password', 'admin', 'void log', 'analytics']):
         return "🐸 That's a manager-only feature! Ask your manager for access. I can help you with: taking orders, processing payments, customer service, and kitchen operations."
     
-    # Common questions with fallback answers
+    # Rude customer scenarios
+    if any(word in message_lower for word in ['rude', 'angry', 'yelling', 'upset', 'mean']):
+        return "🐸 If a customer is rude: 1) Stay calm and professional - don't take it personally. 2) Listen actively and empathize. 3) Apologize sincerely even if it's not your fault. 4) Offer a solution (remake, discount, manager). 5) If they escalate, get your manager immediately. Never argue back!"
+    
+    # Mistakes
+    if any(word in message_lower for word in ['mistake', 'error', 'wrong order', 'messed up']):
+        return "🐸 When you make a mistake: 1) Admit it immediately to the customer and manager. 2) Apologize sincerely. 3) Fix it fast - remake the order or offer a discount. 4) Learn from it. Never blame others or make excuses. Everyone makes mistakes - how you handle them matters!"
+    
+    # Discounts for friends
+    if 'discount' in message_lower and ('friend' in message_lower or 'family' in message_lower):
+        return "🐸 NO! Unauthorized discounts = theft. You can be fired for giving friends/family free or discounted food without manager approval. If they visit, they pay full price or you pay for their meal yourself. No exceptions!"
+    
+    # Split bill
+    if 'split' in message_lower and 'bill' in message_lower:
+        return "🐸 To split a bill: Process as separate orders from the start, OR ring up the full order and note who ordered what, then process multiple payments. Each customer pays their portion. Make sure the totals add up!"
+    
+    # Phone etiquette  
+    if 'phone' in message_lower or 'call' in message_lower or 'answer' in message_lower:
+        return "🐸 Phone etiquette: Answer 'Thank you for calling Coqui! How can I help you?' Smile when you speak (they hear it!). Take orders carefully and repeat back. Give accurate wait times. End with 'We'll have that ready soon. See you then!'"
+    
+    # Cash handling
+    if 'cash' in message_lower or 'change' in message_lower or 'money' in message_lower:
+        return "🐸 Cash handling: Count change out loud to the customer. Never leave the register unattended. Report shortages/overages to manager immediately. No personal cash in the register. Your till must balance at end of shift."
+    
+    # Attendance/late
+    if any(word in message_lower for word in ['late', 'sick', 'absent', 'call out', 'time off']):
+        return "🐸 Attendance: Arrive 10 minutes early. If running late, call immediately. If sick, call at least 2 hours before your shift. Request time off 2 weeks in advance. No-call/no-show = grounds for termination. Always communicate!"
+    
+    # Break policy
+    if 'break' in message_lower:
+        return "🐸 Break policy: 30-minute break for 6+ hour shifts. Clock out for breaks. Eat in designated area, not at register. Return on time - set a phone alarm! No smoking in uniform where customers can see."
+    
+    # Payment
     if 'payment' in message_lower or 'pay' in message_lower:
-        return "🐸 To process a payment: Click the 💳 Payment button, select Cash or Card, add a tip if desired, then complete the transaction. For cash, enter the amount received and we'll calculate change automatically!"
+        return "🐸 To process a payment: Click the 💳 Payment button (top right), add tip FIRST, then select Cash or Card. For cash: enter amount received, we calculate change. For card: click process and watch the 4-second terminal animation. Print receipt when done!"
     
-    elif 'manager' in message_lower or 'sales' in message_lower:
-        return "🐸 Manager features require password 'admin123'. Access Sales Dashboard (📊 button) for analytics, or use Void Log and Menu Manager. All manager functions are password-protected for security!"
+    # Kitchen/tickets
+    if 'kitchen' in message_lower or 'ticket' in message_lower:
+        return "🐸 Kitchen orders: Click '🖨️ Send to Kitchen' from the order cart FIRST, then process payment. View all tickets with the 🎫 Tickets button. Color codes: Green (<10min), Yellow (10-20min), Red (>20min)."
     
-    elif 'kitchen' in message_lower or 'ticket' in message_lower:
-        return "🐸 Send orders to kitchen by clicking '🖨️ Print Order' in the payment modal, or from the order cart. View all kitchen tickets with the 🎫 Tickets button. Managers can void items if needed."
+    # Customer service
+    if 'customer' in message_lower or 'service' in message_lower:
+        return "🐸 Great customer service: Greet warmly, explain Puerto Rican dishes, suggest pairings (tostones with mofongo!), always offer beverages and desserts. Upselling increases your tips! Smile, be patient, thank them sincerely."
     
-    elif 'customer' in message_lower or 'service' in message_lower:
-        return "🐸 Great customer service tips: Greet warmly, explain Puerto Rican dishes, suggest pairings (like tostones with mofongo!), always offer beverages, and thank them. Upselling appetizers and desserts increases sales!"
+    # Menu
+    if 'menu' in message_lower or 'food' in message_lower:
+        return "🐸 Our menu: Beverages (Piña Colada, Mojito), Appetizers (Tostones, Alcapurrias), Main Course (Mofongo, Pernil, Arroz con Pollo), Sides (Rice & Beans, Maduros), Desserts (Flan de Coco, Tres Leches). Explain dishes to customers!"
     
-    elif 'menu' in message_lower:
-        return "🐸 Our menu has 6 categories: Beverages (including bar), Appetizers, Salads, Main Course, Sides, and Desserts. All items show allergens and ingredients. Managers can add/remove items via Menu Manager."
+    # Manager features (for managers)
+    if user_role == 'Manager' and any(word in message_lower for word in ['manager', 'sales', 'void', 'analytics']):
+        return "🐸 Manager features (password: admin123): 📊 Sales Dashboard for analytics, 🚫 Void Log for accountability, 🍽️ Menu Manager to add/remove items. All require password for security."
     
-    elif 'hello' in message_lower or 'hi' in message_lower or 'help' in message_lower:
-        return "🐸 ¡Hola! I'm Coquito, your POS training assistant! I can help with: taking orders, processing payments, kitchen operations, manager features, customer service tips, and system strategies. What would you like to learn?"
+    # Hello/help
+    if any(word in message_lower for word in ['hello', 'hi', 'help', 'hola']):
+        return "🐸 ¡Hola! I'm Coquito, your POS training assistant! Ask me about: taking orders, payments, dealing with rude customers, work ethics, customer service, or any POS operation. What do you need help with?"
     
+    # Default
     else:
-        return "🐸 I'm Coquito, here to help with Coqui POS! I can teach you about: payments, kitchen tickets, manager features, menu items, customer service, and efficiency tips. What specific topic interests you?"
+        return "🐸 I can help with: taking orders, payments, rude customers, mistakes, discounts, phone calls, cash handling, breaks, customer service, and work ethics. What specific topic interests you?"
 
 # ============================================
 # MENU ITEM ANALYTICS
