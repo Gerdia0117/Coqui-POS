@@ -2573,3 +2573,225 @@ button:disabled {
     flex-wrap: nowrap;
   }
 }
+/* ============================================ */
+/* TICKET SELECTION MODAL */
+/* ============================================ */
+.ticket-selection-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease-in;
+}
+
+.ticket-selection-modal {
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  width: 90%;
+  max-width: 800px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  animation: slideUp 0.3s ease-out;
+}
+
+.ticket-selection-header {
+  padding: 24px;
+  border-bottom: 2px solid #e5e7eb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ticket-selection-header h2 {
+  margin: 0;
+  font-size: 24px;
+  color: #1f2937;
+}
+
+.ticket-selection-subtitle {
+  color: #6b7280;
+  margin-bottom: 20px;
+}
+
+.ticket-selection-content {
+  padding: 24px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.ticket-selection-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+.ticket-selection-card {
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ticket-selection-card:hover {
+  border-color: #10b981;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+  transform: translateY(-2px);
+}
+
+.ticket-selection-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.ticket-selection-number {
+  background-color: #10b981;
+  color: white;
+  font-weight: bold;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+}
+
+.ticket-selection-id {
+  font-family: monospace;
+  color: #6b7280;
+  font-size: 12px;
+}
+
+.ticket-selection-items {
+  margin: 12px 0;
+}
+
+.ticket-selection-items strong {
+  color: #374151;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.ticket-selection-items ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.ticket-selection-items li {
+  color: #6b7280;
+  padding: 4px 0;
+  font-size: 14px;
+}
+
+.ticket-selection-items .more-items {
+  color: #10b981;
+  font-style: italic;
+}
+
+.ticket-selection-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.ticket-selection-time {
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+.ticket-selection-btn {
+  background-color: #10b981;
+  color: white;
+  border: none;
+  padding: 6px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+}
+
+.ticket-selection-btn:hover {
+  background-color: #059669;
+}
+
+.ticket-selection-actions {
+  padding: 16px 24px;
+  border-top: 2px solid #e5e7eb;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.ticket-selection-actions .cancel-btn {
+  background-color: #f3f4f6;
+  color: #374151;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.ticket-selection-actions .cancel-btn:hover {
+  background-color: #e5e7eb;
+}
+
+/* Dark mode support */
+.dark .ticket-selection-modal {
+  background-color: #1f2937;
+  color: white;
+}
+
+.dark .ticket-selection-header {
+  border-bottom-color: #374151;
+}
+
+.dark .ticket-selection-header h2,
+.dark .ticket-selection-items strong {
+  color: white;
+}
+
+.dark .ticket-selection-subtitle,
+.dark .ticket-selection-items li,
+.dark .ticket-selection-id {
+  color: #9ca3af;
+}
+
+.dark .ticket-selection-card {
+  border-color: #374151;
+  background-color: #111827;
+}
+
+.dark .ticket-selection-card:hover {
+  border-color: #10b981;
+  background-color: #1f2937;
+}
+
+.dark .ticket-selection-footer {
+  border-top-color: #374151;
+}
+
+.dark .ticket-selection-actions {
+  border-top-color: #374151;
+}
+
+.dark .ticket-selection-actions .cancel-btn {
+  background-color: #374151;
+  color: #d1d5db;
+}
+
+.dark .ticket-selection-actions .cancel-btn:hover {
+  background-color: #4b5563;
+}

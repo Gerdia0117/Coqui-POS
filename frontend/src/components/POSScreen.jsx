@@ -17,6 +17,7 @@ import AIAssistant from "./AIAssistant";
 import KitchenTickets from "./KitchenTickets";
 import VoidLog from "./VoidLog";
 import MenuManager from "./MenuManager";
+import TicketSelectionModal from "./TicketSelectionModal";
 
 export default function POSScreen({
   userRole,
@@ -35,6 +36,8 @@ export default function POSScreen({
   const [showVoidLog, setShowVoidLog] = useState(false);
   const [showMenuManager, setShowMenuManager] = useState(false);
   const [currentTicketId, setCurrentTicketId] = useState(null);
+  const [showTicketSelection, setShowTicketSelection] = useState(false);
+  const [availableTickets, setAvailableTickets] = useState([]);
 
   // ============================================
   // ORDER MANAGEMENT FUNCTIONS
@@ -109,23 +112,9 @@ export default function POSScreen({
           setCurrentTicketId(ticket.ticketId);
           setShowPaymentModal(true);
         } else {
-          // Multiple open tickets - let user choose
-          const ticketList = openTickets.map((t, i) => 
-            `${i + 1}. ${t.ticketId} - ${t.items.length} items`
-          ).join("\n");
-          const choice = prompt(
-            `Multiple open tickets found. Enter ticket number (1-${openTickets.length}):\n\n${ticketList}`
-          );
-          const index = parseInt(choice) - 1;
-          
-          if (index >= 0 && index < openTickets.length) {
-            const ticket = openTickets[index];
-            setOrderItems(ticket.items);
-            setCurrentTicketId(ticket.ticketId);
-            setShowPaymentModal(true);
-          } else {
-            alert("Invalid selection!");
-          }
+          // Multiple open tickets - show selection modal
+          setAvailableTickets(openTickets);
+          setShowTicketSelection(true);
         }
       }
     } catch (err) {
@@ -242,6 +231,19 @@ export default function POSScreen({
     onLogout();
   };
 
+  // Handle ticket selection from modal
+  const handleSelectTicket = (ticket) => {
+    setOrderItems(ticket.items);
+    setCurrentTicketId(ticket.ticketId);
+    setShowTicketSelection(false);
+    setShowPaymentModal(true);
+  };
+
+  const handleCancelTicketSelection = () => {
+    setShowTicketSelection(false);
+    setAvailableTickets([]);
+  };
+
   // ============================================
   // CALCULATE TOTALS
   // ============================================
@@ -353,6 +355,17 @@ export default function POSScreen({
         <MenuManager
           isOpen={showMenuManager}
           onClose={handleCloseMenuManager}
+        />
+      )}
+
+      {/* ============================================ */}
+      {/* TICKET SELECTION MODAL */}
+      {/* ============================================ */}
+      {showTicketSelection && (
+        <TicketSelectionModal
+          tickets={availableTickets}
+          onSelect={handleSelectTicket}
+          onCancel={handleCancelTicketSelection}
         />
       )}
     </div>
