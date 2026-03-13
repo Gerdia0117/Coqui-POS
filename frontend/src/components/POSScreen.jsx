@@ -83,12 +83,54 @@ export default function POSScreen({
   };
 
   // Proceed to payment
-  const handleProceedToPayment = () => {
-    if (orderItems.length === 0) {
-      alert("No items in order!");
+  const handleProceedToPayment = async () => {
+    // If cart has items, proceed normally
+    if (orderItems.length > 0) {
+      setShowPaymentModal(true);
       return;
     }
-    setShowPaymentModal(true);
+    
+    // If cart is empty, check for open tickets
+    try {
+      const response = await fetch("http://localhost:5000/api/tickets");
+      if (response.ok) {
+        const data = await response.json();
+        const openTickets = data.tickets.filter(t => t.status === "open");
+        
+        if (openTickets.length === 0) {
+          alert("No items in order and no open tickets!");
+          return;
+        }
+        
+        if (openTickets.length === 1) {
+          // Auto-select the single open ticket
+          const ticket = openTickets[0];
+          setOrderItems(ticket.items);
+          setCurrentTicketId(ticket.ticketId);
+          setShowPaymentModal(true);
+        } else {
+          // Multiple open tickets - let user choose
+          const ticketList = openTickets.map((t, i) => 
+            `${i + 1}. ${t.ticketId} - ${t.items.length} items`
+          ).join("\n");
+          const choice = prompt(
+            `Multiple open tickets found. Enter ticket number (1-${openTickets.length}):\n\n${ticketList}`
+          );
+          const index = parseInt(choice) - 1;
+          
+          if (index >= 0 && index < openTickets.length) {
+            const ticket = openTickets[index];
+            setOrderItems(ticket.items);
+            setCurrentTicketId(ticket.ticketId);
+            setShowPaymentModal(true);
+          } else {
+            alert("Invalid selection!");
+          }
+        }
+      }
+    } catch (err) {
+      alert("No items in order!");
+    }
   };
 
   // Complete payment and reset
