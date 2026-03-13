@@ -2795,3 +2795,74 @@ button:disabled {
 .dark .ticket-selection-actions .cancel-btn:hover {
   background-color: #4b5563;
 }
+
+/* ============================================ */
+/* PAYMENT MODAL - ORDER ITEMS LIST */
+/* ============================================ */
+.order-items-list {
+  margin: 16px 0;
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 12px;
+  background-color: #f9fafb;
+}
+
+.order-item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.order-item-row:last-child {
+  border-bottom: none;
+}
+
+.item-quantity {
+  font-weight: 600;
+  color: #10b981;
+  min-width: 40px;
+}
+
+.item-name {
+  flex: 1;
+  margin: 0 12px;
+  color: #374151;
+}
+
+.item-price {
+  font-weight: 600;
+  color: #1f2937;
+  min-width: 70px;
+  text-align: right;
+}
+
+.summary-divider {
+  border-top: 2px solid #d1d5db;
+  margin: 16px 0;
+}
+
+/* Dark mode */
+.dark .order-items-list {
+  background-color: #1f2937;
+  border-color: #374151;
+}
+
+.dark .order-item-row {
+  border-bottom-color: #374151;
+}
+
+.dark .item-name {
+  color: #d1d5db;
+}
+
+.dark .item-price {
+  color: #f3f4f6;
+}
+
+.dark .summary-divider {
+  border-top-color: #4b5563;
+}

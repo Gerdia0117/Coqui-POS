@@ -212,6 +212,20 @@ export default function PaymentModal({
         {/* ============================================ */}
         <div className="payment-summary">
           <h3>Order Summary</h3>
+          
+          {/* Order Items List */}
+          <div className="order-items-list">
+            {orderItems.map((item, index) => (
+              <div key={index} className="order-item-row">
+                <span className="item-quantity">{item.quantity}x</span>
+                <span className="item-name">{item.name}</span>
+                <span className="item-price">${(item.price * item.quantity).toFixed(2)}</span>
+              </div>
+            ))}
+          </div>
+          
+          <div className="summary-divider"></div>
+          
           <div className="summary-line">
             <span>Subtotal:</span>
             <span>${subtotal.toFixed(2)}</span>
