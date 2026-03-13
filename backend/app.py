@@ -550,6 +550,7 @@ def create_ticket():
             'ticketId': f"TKT-{int(datetime.now().timestamp() * 1000)}",
             'items': [
                 {
+                    'id': item.get('id'),  # Save ID so we can look up price later
                     'name': item.get('name'),
                     'quantity': item.get('quantity', 1),
                     'sentAt': now
