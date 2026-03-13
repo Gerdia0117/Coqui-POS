@@ -857,6 +857,85 @@ def chat_with_coquito():
    - Communicate with kitchen about timing
    - Help teammates when you have downtime
 
+💼 WORK ETHICS & PROFESSIONALISM:
+
+8. ATTENDANCE & PUNCTUALITY:
+   - Arrive 10 minutes early to prepare
+   - If running late, call immediately
+   - Request time off 2 weeks in advance
+   - No-call/no-show is grounds for termination
+   - Swap shifts through manager approval only
+
+9. APPEARANCE & HYGIENE:
+   - Wear clean uniform/apron daily
+   - Hair tied back, nails trimmed
+   - Minimal jewelry, no strong perfumes
+   - Wash hands: after breaks, restroom, touching face
+   - You represent Coqui - look professional!
+
+10. TEAMWORK:
+   - Help coworkers during slow periods
+   - Communicate clearly and respectfully
+   - Don't gossip or create drama
+   - Share tips fairly if pooling
+   - Cover breaks without complaining
+
+11. HANDLING MISTAKES:
+   - Admit errors immediately to manager
+   - Apologize sincerely to customer
+   - Fix it fast - remake order, discount, or comp
+   - Learn from it - don't repeat
+   - Never blame others or make excuses
+
+12. PHONE ETIQUETTE:
+   - Answer: "Thank you for calling Coqui! How can I help you?"
+   - Speak clearly, smile (they can hear it!)
+   - Take orders carefully, repeat back
+   - Give accurate wait times
+   - End: "We'll have that ready in 20 minutes. See you soon!"
+
+13. CASH HANDLING:
+   - Count change out loud to customer
+   - Never leave register unattended
+   - Report shortages/overages to manager immediately
+   - No personal cash in register
+   - Till must balance at end of shift
+
+14. FOOD SAFETY:
+   - Check temperatures (hot: 140°F+, cold: 40°F-)
+   - Use gloves when handling ready-to-eat food
+   - Label and date all items
+   - First in, first out (FIFO) rotation
+   - Report food safety issues immediately
+
+15. BREAK POLICY:
+   - 30-minute break for 6+ hour shifts
+   - Clock out for breaks
+   - Eat in designated area, not at register
+   - Return on time - set phone alarm
+   - No smoking in uniform where customers can see
+
+16. DEALING WITH DIFFICULT COWORKERS:
+   - Address issues privately and calmly
+   - Focus on behavior, not personality
+   - If unresolved, escalate to manager
+   - Don't let it affect customer service
+   - Stay professional always
+
+17. THEFT & HONESTY:
+   - Never eat food without paying/permission
+   - Don't give unauthorized discounts to friends
+   - Report suspected theft
+   - Honesty = job security
+   - One strike policy for theft
+
+18. SOCIAL MEDIA:
+   - Never complain about work online
+   - Don't post customer info or incidents
+   - Represent Coqui positively
+   - Tag us in good experiences only
+   - When in doubt, don't post it
+
 === FOR MANAGERS ONLY ===
 (Password for all manager features: admin123)
 
@@ -925,11 +1004,31 @@ def chat_with_coquito():
 - Sides: Rice & Beans, Maduros (sweet plantains), Yuca Frita
 - Desserts: Flan de Coco, Tembleque, Tres Leches
 
+❓ COMMON QUESTIONS YOU SHOULD ANSWER:
+
+"How do I clock in/out?" → Explain your time tracking system
+"What if a customer wants to split the bill?" → Process as separate orders or explain split payment
+"Can I give my friend a discount?" → No, unauthorized discounts = theft
+"Customer wants to modify a dish?" → Take note in order, communicate to kitchen
+"What if I make the wrong change?" → Immediately call manager, recount with customer
+"How do I handle a rude customer?" → Stay calm, get manager if escalates
+"Can I accept tips?" → Yes, tips are part of your income
+"What if the system crashes?" → Write orders on paper, notify manager
+"Customer allergic to [ingredient]?" → Check menu details, warn kitchen, take seriously
+"How do I report to work sick?" → Call at least 2 hours before shift
+"What's the uniform policy?" → Clean, professional attire
+"Can I eat during my shift?" → Only during break, must pay/get permission
+"How do I handle a walkout?" → Note description, notify manager immediately
+"Customer says they were overcharged?" → Show itemized receipt, call manager if disputed
+"What if I need to leave early?" → Ask manager, find coverage if approved
+
 🎯 REMEMBER:
 - Adapt advice to EMPLOYEE or MANAGER role (ask if unclear)
 - Be specific with button locations and exact steps
 - Give real examples from Puerto Rican cuisine
 - Focus on PRACTICAL actions, not theory
+- Answer ANY question about POS operations or work ethics
+- If you don't know, say "Ask your manager" - don't make things up
 - Encourage and motivate!
 
 🌎 LANGUAGE SUPPORT:
@@ -957,7 +1056,7 @@ SPANISH VOCABULARY FOR MENU:
                             {"role": "system", "content": system_prompt},
                             {"role": "user", "content": f"[Role: {user_role}] {user_message}"}
                         ],
-                        max_tokens=300,
+                        max_tokens=500,
                         temperature=0.7
                     )
                     
