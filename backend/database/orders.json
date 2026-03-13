@@ -1,1 +1,84 @@
-[]
+[
+  {
+    "orderId": "ORD-1773432078549",
+    "items": [
+      {
+        "id": "bev-4",
+        "name": "Caf\u00e9 con Leche",
+        "quantity": 3,
+        "sentAt": "2026-03-13T15:59:21.078081",
+        "price": 3.99,
+        "category": "beverages"
+      },
+      {
+        "id": "sal-2",
+        "name": "Caesar Salad",
+        "quantity": 1,
+        "sentAt": "2026-03-13T15:59:21.078081",
+        "price": 8.99,
+        "category": "salads"
+      },
+      {
+        "id": "des-4",
+        "name": "Quesito",
+        "quantity": 1,
+        "sentAt": "2026-03-13T15:59:21.078081",
+        "price": 4.99,
+        "category": "desserts"
+      }
+    ],
+    "subtotal": 25.950000000000003,
+    "tax": 2.9842500000000003,
+    "tip": 4.3401375,
+    "total": 33.2743875,
+    "paymentMethod": "card",
+    "cashReceived": null,
+    "change": null,
+    "timestamp": "3/13/2026, 4:01:18 PM"
+  },
+  {
+    "orderId": "ORD-1773432144713",
+    "items": [
+      {
+        "id": "des-1",
+        "name": "Flan de Coco",
+        "quantity": 1,
+        "sentAt": "2026-03-13T16:01:57.052995",
+        "price": 6.99,
+        "category": "desserts"
+      },
+      {
+        "id": "des-2",
+        "name": "Tembleque",
+        "quantity": 1,
+        "sentAt": "2026-03-13T16:01:57.052995",
+        "price": 5.99,
+        "category": "desserts"
+      },
+      {
+        "id": "des-3",
+        "name": "Tres Leches Cake",
+        "quantity": 1,
+        "sentAt": "2026-03-13T16:01:57.052995",
+        "price": 7.99,
+        "category": "desserts"
+      },
+      {
+        "id": "des-4",
+        "name": "Quesito",
+        "quantity": 1,
+        "sentAt": "2026-03-13T16:01:57.052995",
+        "price": 4.99,
+        "category": "desserts"
+      }
+    ],
+    "subtotal": 25.96,
+    "tax": 2.9854000000000003,
+    "tip": 4.34181,
+    "total": 33.28721,
+    "paymentMethod": "cash",
+    "cashReceived": 33.29,
+    "change": 0.0027899999999974057,
+    "timestamp": "3/13/2026, 4:02:24 PM"
+  }
+]

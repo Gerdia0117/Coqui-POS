@@ -206,12 +206,10 @@ export default function KitchenTickets({ onClose, userRole }) {
                 <div key={idx} className="ticket-detail-item">
                   <span className="item-qty">{item.quantity}x</span>
                   <span className="item-name">{item.name}</span>
-                  {/* Manager-only: show individual item sent time */}
-                  {userRole === "Manager" && (
-                    <span className="item-sent-time">
-                      🕐 {formatTime(item.sentAt)}
-                    </span>
-                  )}
+                  {/* Show individual item sent time to everyone */}
+                  <span className="item-sent-time">
+                    🕐 {formatTime(item.sentAt)}
+                  </span>
                   {/* Void item button (only for open tickets, manager only) */}
                   {isOpen && userRole === "Manager" && (
                     <button

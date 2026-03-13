@@ -1,1 +1,62 @@
-[]
+[
+  {
+    "ticketId": "TKT-1773431961078",
+    "items": [
+      {
+        "id": "bev-4",
+        "name": "Caf\u00e9 con Leche",
+        "quantity": 3,
+        "sentAt": "2026-03-13T15:59:21.078081"
+      },
+      {
+        "id": "sal-2",
+        "name": "Caesar Salad",
+        "quantity": 1,
+        "sentAt": "2026-03-13T15:59:21.078081"
+      },
+      {
+        "id": "des-4",
+        "name": "Quesito",
+        "quantity": 1,
+        "sentAt": "2026-03-13T15:59:21.078081"
+      }
+    ],
+    "createdAt": "2026-03-13T15:59:21.078081",
+    "status": "closed",
+    "closedAt": "2026-03-13T16:01:20.374857",
+    "sentBy": "Employee"
+  },
+  {
+    "ticketId": "TKT-1773432117053",
+    "items": [
+      {
+        "id": "des-1",
+        "name": "Flan de Coco",
+        "quantity": 1,
+        "sentAt": "2026-03-13T16:01:57.052995"
+      },
+      {
+        "id": "des-2",
+        "name": "Tembleque",
+        "quantity": 1,
+        "sentAt": "2026-03-13T16:01:57.052995"
+      },
+      {
+        "id": "des-3",
+        "name": "Tres Leches Cake",
+        "quantity": 1,
+        "sentAt": "2026-03-13T16:01:57.052995"
+      },
+      {
+        "id": "des-4",
+        "name": "Quesito",
+        "quantity": 1,
+        "sentAt": "2026-03-13T16:01:57.052995"
+      }
+    ],
+    "createdAt": "2026-03-13T16:01:57.052995",
+    "status": "closed",
+    "closedAt": "2026-03-13T16:02:28.058300",
+    "sentBy": "Employee"
+  }
+]
