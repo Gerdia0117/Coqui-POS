@@ -18,6 +18,7 @@ import KitchenTickets from "./KitchenTickets";
 import VoidLog from "./VoidLog";
 import MenuManager from "./MenuManager";
 import TicketSelectionModal from "./TicketSelectionModal";
+import { menuData } from "../data/menuData";
 
 export default function POSScreen({
   userRole,
@@ -85,6 +86,33 @@ export default function POSScreen({
     }
   };
 
+  // Helper function to enrich ticket items with prices from menuData
+  const enrichTicketItems = (items) => {
+    // Flatten all menu items into a single lookup map
+    const allMenuItems = Object.values(menuData).flat();
+    const menuItemsMap = {};
+    allMenuItems.forEach(item => {
+      menuItemsMap[item.id] = item;
+    });
+
+    // Enrich each ticket item with price data
+    return items.map(item => {
+      const menuItem = menuItemsMap[item.id];
+      if (menuItem) {
+        return {
+          ...item,
+          price: menuItem.price,
+          category: menuItem.category
+        };
+      }
+      // Fallback if item not found in menu
+      return {
+        ...item,
+        price: item.price || 0
+      };
+    });
+  };
+
   // Proceed to payment
   const handleProceedToPayment = async () => {
     // If cart has items, proceed normally
@@ -108,7 +136,8 @@ export default function POSScreen({
         if (openTickets.length === 1) {
           // Auto-select the single open ticket
           const ticket = openTickets[0];
-          setOrderItems(ticket.items);
+          const enrichedItems = enrichTicketItems(ticket.items);
+          setOrderItems(enrichedItems);
           setCurrentTicketId(ticket.ticketId);
           setShowPaymentModal(true);
         } else {
@@ -233,7 +262,8 @@ export default function POSScreen({
 
   // Handle ticket selection from modal
   const handleSelectTicket = (ticket) => {
-    setOrderItems(ticket.items);
+    const enrichedItems = enrichTicketItems(ticket.items);
+    setOrderItems(enrichedItems);
     setCurrentTicketId(ticket.ticketId);
     setShowTicketSelection(false);
     setShowPaymentModal(true);
