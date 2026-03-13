@@ -1,7 +1,7 @@
 import lightLogo from "../assets/coqui-logo-light.png";
 import darkLogo from "../assets/coqui-logo-dark.png";
 
-export default function Header({ userRole, darkMode, setDarkMode, onOpenSalesDashboard, onLogoClick, onOpenAIAssistant, onProceedToPayment, onOpenTickets, onOpenVoidLog }) {
+export default function Header({ userRole, darkMode, setDarkMode, onOpenSalesDashboard, onLogoClick, onOpenAIAssistant, onProceedToPayment, onOpenTickets, onOpenVoidLog, onOpenMenuManager }) {
   return (
     <div className="header">
       <img
@@ -38,6 +38,13 @@ export default function Header({ userRole, darkMode, setDarkMode, onOpenSalesDas
         {userRole === "Manager" && (
           <button onClick={onOpenVoidLog}>
             🚫 Void Log
+          </button>
+        )}
+        
+        {/* Menu Manager Button (Manager Only) */}
+        {userRole === "Manager" && (
+          <button onClick={onOpenMenuManager}>
+            🍽️ Menu Manager
           </button>
         )}
         

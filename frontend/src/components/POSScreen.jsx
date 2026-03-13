@@ -16,6 +16,7 @@ import SalesDashboard from "./SalesDashboard";
 import AIAssistant from "./AIAssistant";
 import KitchenTickets from "./KitchenTickets";
 import VoidLog from "./VoidLog";
+import MenuManager from "./MenuManager";
 
 export default function POSScreen({
   userRole,
@@ -32,6 +33,7 @@ export default function POSScreen({
   const [showAIAssistant, setShowAIAssistant] = useState(false);
   const [showKitchenTickets, setShowKitchenTickets] = useState(false);
   const [showVoidLog, setShowVoidLog] = useState(false);
+  const [showMenuManager, setShowMenuManager] = useState(false);
   const [currentTicketId, setCurrentTicketId] = useState(null);
 
   // ============================================
@@ -151,8 +153,10 @@ export default function POSScreen({
         const data = await response.json();
         setCurrentTicketId(data.ticketId);
         alert("🖨️ Order sent to kitchen!\n\n" +
-          items.map(item => `${item.quantity}x ${item.name}`).join("\n"));
-        setOrderItems([]);
+          items.map(item => `${item.quantity}x ${item.name}`).join("\n") +
+          "\n\nNow click 💳 Payment to complete the transaction.");
+        // DON'T clear items here - keep them for payment
+        // setOrderItems([]);
         return data.ticketId;
       }
     } catch (err) {
@@ -180,6 +184,15 @@ export default function POSScreen({
 
   const handleCloseVoidLog = () => {
     setShowVoidLog(false);
+  };
+
+  // Open/Close Menu Manager
+  const handleOpenMenuManager = () => {
+    setShowMenuManager(true);
+  };
+
+  const handleCloseMenuManager = () => {
+    setShowMenuManager(false);
   };
 
   // Handle logo click - return to login screen for quick user switch
@@ -215,6 +228,7 @@ export default function POSScreen({
         onProceedToPayment={handleProceedToPayment}
         onOpenTickets={handleOpenTickets}
         onOpenVoidLog={handleOpenVoidLog}
+        onOpenMenuManager={handleOpenMenuManager}
       />
 
       {/* ============================================ */}
@@ -288,6 +302,16 @@ export default function POSScreen({
       {/* ============================================ */}
       {showVoidLog && (
         <VoidLog onClose={handleCloseVoidLog} />
+      )}
+
+      {/* ============================================ */}
+      {/* MENU MANAGER MODAL (Manager Only) */}
+      {/* ============================================ */}
+      {showMenuManager && (
+        <MenuManager
+          isOpen={showMenuManager}
+          onClose={handleCloseMenuManager}
+        />
       )}
     </div>
   );

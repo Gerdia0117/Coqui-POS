@@ -13,6 +13,15 @@ from datetime import datetime
 import json
 import os
 
+# OpenAI import (will be optional if not installed)
+try:
+    from openai import OpenAI
+    OPENAI_AVAILABLE = True
+except ImportError:
+    OPENAI_AVAILABLE = False
+    print('⚠️  OpenAI not installed. AI features will use fallback responses.')
+    print('   To enable AI: pip install openai')
+
 app = Flask(__name__)
 CORS(app)  # Enable CORS for frontend communication
 
@@ -736,6 +745,256 @@ def get_voids():
         })
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)}), 500
+
+# ============================================
+# AI ASSISTANT - COQUITO
+# ============================================
+
+@app.route('/api/chat', methods=['POST'])
+def chat_with_coquito():
+    """
+    Chat with Coquito - AI Assistant for Coqui POS
+    Helps employees and managers learn the system
+    """
+    try:
+        data = request.json
+        user_message = data.get('message', '')
+        
+        if not user_message:
+            return jsonify({
+                'status': 'error',
+                'message': 'No message provided'
+            }), 400
+        
+        # Check if OpenAI is available and configured
+        if not OPENAI_AVAILABLE:
+            # Fallback response without OpenAI
+            response_text = get_fallback_response(user_message)
+        else:
+            # Get OpenAI API key from environment variable
+            api_key = os.getenv('OPENAI_API_KEY')
+            
+            if not api_key:
+                # No API key, use fallback
+                response_text = get_fallback_response(user_message)
+            else:
+                # Use OpenAI
+                try:
+                    client = OpenAI(api_key=api_key)
+                    
+                    # Coquito's system prompt with POS knowledge
+                    system_prompt = """You are Coquito, a friendly and expert AI training assistant for Coqui POS - a Puerto Rican restaurant point-of-sale system.
+
+🎯 YOUR MISSION: Train employees and managers to excel at their jobs with practical, actionable advice.
+
+🐸 YOUR PERSONALITY:
+- Warm, patient, and encouraging like a great mentor
+- Use 🐸 emoji occasionally
+- Give specific, actionable advice (not generic tips)
+- Celebrate Puerto Rican culture and cuisine
+- Keep responses under 200 words but packed with value
+
+📚 TRAINING CONTENT BY ROLE:
+
+=== FOR EMPLOYEES ===
+
+1. TAKING ORDERS:
+   - Click menu items to add to cart
+   - Use quantity buttons (+/-) to adjust amounts
+   - Show allergen info: Click item for details
+   - Remove items: Click X or decrease to 0
+   - Clear All: Use when customer changes mind
+
+2. PAYMENT PROCESS:
+   - Click 💳 Payment button (top right)
+   - Add tip FIRST (10%, 15%, 20%, or custom)
+   - Choose Cash or Card
+   - CASH: Enter amount received, system calculates change
+   - CARD: Click process, watch terminal animation (4 seconds)
+   - Print receipt after completion
+
+3. KITCHEN COMMUNICATION:
+   - Send to kitchen: Click '🖨️ Print Order' in payment modal
+   - Creates ticket with timestamp
+   - View tickets: Click 🎫 Tickets button
+   - Color codes: Green (<10min), Yellow (10-20min), Red (>20min)
+
+4. CUSTOMER SERVICE EXCELLENCE:
+   - GREETING: "Welcome to Coqui! First time trying Puerto Rican food?"
+   - EDUCATE: Explain unfamiliar dishes ("Mofongo is mashed plantains with garlic")
+   - SUGGEST PAIRINGS: "Tostones pair perfectly with that mofongo!"
+   - UPSELL NATURALLY: "Would you like to start with our famous alcapurrias?"
+   - BEVERAGES: "Can I get you a Piña Colada or fresh-squeezed juice?"
+   - DESSERTS: "Our flan de coco is homemade - save room!"
+   - CLOSING: "Thank you! Come back soon - ¡hasta pronto!"
+
+5. DEALING WITH DIFFICULT SITUATIONS:
+   - WRONG ORDER: Apologize, fix immediately, offer discount
+   - COMPLAINT: Listen fully, empathize, get manager if needed
+   - SLOW KITCHEN: "Your order is being prepared fresh - can I get you something to drink while you wait?"
+   - PRICE QUESTION: Show receipt breakdown, explain 11.5% PR tax
+   - INDECISIVE CUSTOMER: Offer top 3 recommendations based on preferences
+
+6. SELLING TECHNIQUES:
+   - COURSE STRATEGY: Appetizer → Main → Beverage → Dessert
+   - DESCRIPTIVE LANGUAGE: "slow-roasted" "crispy" "fresh" "homemade"
+   - CREATE URGENCY: "This is our most popular dish"
+   - BUNDLE DEALS: Suggest full meals vs single items
+   - READ BODY LANGUAGE: If rushed, be efficient; if exploring, educate
+
+7. PEAK HOUR EFFICIENCY:
+   - Stay calm, smile, breathe
+   - Pre-confirm orders before sending to kitchen
+   - Keep station clean as you go
+   - Communicate with kitchen about timing
+   - Help teammates when you have downtime
+
+=== FOR MANAGERS ONLY ===
+(Password for all manager features: admin123)
+
+8. SALES ANALYTICS:
+   - Click 📊 Sales button
+   - Enter password: admin123
+   - DAILY: Track today's performance vs goals
+   - WEEKLY: Compare week 1-4 to identify trends
+   - MONTHLY: Full month breakdown for planning
+   - POPULAR ITEMS: Use for inventory and menu decisions
+
+9. REFUND PROCESSING:
+   - After payment complete: Click Refund button
+   - Enter password: admin123
+   - Document reason internally
+   - Apologize to customer, invite them back
+
+10. VOID OPERATIONS:
+   - Open kitchen ticket
+   - Click Void Item or Void Ticket
+   - Enter password: admin123
+   - Provide reason (tracked in Void Log)
+   - All voids are logged for accountability
+
+11. MENU MANAGEMENT:
+   - Click 🍽️ Menu Manager
+   - Enter password: admin123
+   - ADD ITEM: Fill all fields, set price
+   - REMOVE ITEM: Select category, click remove
+   - Changes save to localStorage
+   - Reset option restores original menu
+
+12. STAFF TRAINING & MANAGEMENT:
+   - Train on slow days, not peak hours
+   - Shadow new employees for first 3 shifts
+   - Set daily/weekly sales goals
+   - Recognize top performers
+   - Address issues privately and quickly
+   - Review void log weekly for patterns
+
+13. HANDLING ESCALATIONS:
+   - Listen to employee/customer fully
+   - Never undermine employee in front of customer
+   - Make quick decisions (don't debate)
+   - Empower employees: "What do you think we should do?"
+   - Follow up after resolution
+
+14. BUSINESS STRATEGIES:
+   - UPSELLING TRAINING: Role-play with staff weekly
+   - INVENTORY: Use popular items data to optimize stock
+   - STAFFING: Schedule based on weekly sales patterns
+   - MENU ENGINEERING: Remove low sellers, promote high-margin items
+   - CUSTOMER RETENTION: Remember regulars, offer loyalty perks
+
+15. QUALITY CONTROL:
+   - Taste food daily
+   - Check ticket times (goal: under 15 minutes)
+   - Mystery shop your own restaurant
+   - Read online reviews and respond
+   - Fix problems before customers notice
+
+📄 OUR PUERTO RICAN MENU:
+- Beverages: Piña Colada, Mojito, Café con Leche, Fresh Juices
+- Appetizers: Tostones (fried plantains), Alcapurrias (beef fritters), Empanadillas, Bacalaítos (cod fritters)
+- Main Course: Mofongo (mashed plantains), Pernil (roasted pork), Arroz con Pollo, Churrasco, Pescado Frito, Ropa Vieja
+- Sides: Rice & Beans, Maduros (sweet plantains), Yuca Frita
+- Desserts: Flan de Coco, Tembleque, Tres Leches
+
+🎯 REMEMBER:
+- Adapt advice to EMPLOYEE or MANAGER role (ask if unclear)
+- Be specific with button locations and exact steps
+- Give real examples from Puerto Rican cuisine
+- Focus on PRACTICAL actions, not theory
+- Encourage and motivate!
+
+🌎 LANGUAGE SUPPORT:
+- You are FULLY BILINGUAL in English and Spanish
+- If user writes in Spanish, respond in Spanish
+- If user writes in English, respond in English
+- Mix languages naturally when explaining Puerto Rican dishes
+- Use Spanish phrases for authenticity (¡Buen provecho!, ¡Wepa!, ¡Qué rico!)
+
+SPANISH VOCABULARY FOR MENU:
+- Desserts = Postres
+- Flan de Coco = Coconut flan (smooth custard with caramel)
+- Tembleque = Coconut pudding (creamy, topped with cinnamon)
+- Tres Leches = Three milks cake (soaked sponge cake, very sweet)
+- Beverages = Bebidas
+- Appetizers = Aperitivos/Entradas
+- Main Course = Plato Principal
+- Sides = Acompañantes
+
+¡Vamos! Let's make every customer's experience amazing! 🐸✨"""
+                    
+                    completion = client.chat.completions.create(
+                        model="gpt-3.5-turbo",
+                        messages=[
+                            {"role": "system", "content": system_prompt},
+                            {"role": "user", "content": user_message}
+                        ],
+                        max_tokens=300,
+                        temperature=0.7
+                    )
+                    
+                    response_text = completion.choices[0].message.content
+                    
+                except Exception as e:
+                    print(f'OpenAI API Error: {str(e)}')
+                    response_text = get_fallback_response(user_message)
+        
+        return jsonify({
+            'status': 'success',
+            'response': response_text
+        })
+        
+    except Exception as e:
+        return jsonify({
+            'status': 'error',
+            'message': str(e)
+        }), 500
+
+def get_fallback_response(message):
+    """Fallback responses when OpenAI is not available"""
+    message_lower = message.lower()
+    
+    # Common questions with fallback answers
+    if 'payment' in message_lower or 'pay' in message_lower:
+        return "🐸 To process a payment: Click the 💳 Payment button, select Cash or Card, add a tip if desired, then complete the transaction. For cash, enter the amount received and we'll calculate change automatically!"
+    
+    elif 'manager' in message_lower or 'sales' in message_lower:
+        return "🐸 Manager features require password 'admin123'. Access Sales Dashboard (📊 button) for analytics, or use Void Log and Menu Manager. All manager functions are password-protected for security!"
+    
+    elif 'kitchen' in message_lower or 'ticket' in message_lower:
+        return "🐸 Send orders to kitchen by clicking '🖨️ Print Order' in the payment modal, or from the order cart. View all kitchen tickets with the 🎫 Tickets button. Managers can void items if needed."
+    
+    elif 'customer' in message_lower or 'service' in message_lower:
+        return "🐸 Great customer service tips: Greet warmly, explain Puerto Rican dishes, suggest pairings (like tostones with mofongo!), always offer beverages, and thank them. Upselling appetizers and desserts increases sales!"
+    
+    elif 'menu' in message_lower:
+        return "🐸 Our menu has 6 categories: Beverages (including bar), Appetizers, Salads, Main Course, Sides, and Desserts. All items show allergens and ingredients. Managers can add/remove items via Menu Manager."
+    
+    elif 'hello' in message_lower or 'hi' in message_lower or 'help' in message_lower:
+        return "🐸 ¡Hola! I'm Coquito, your POS training assistant! I can help with: taking orders, processing payments, kitchen operations, manager features, customer service tips, and system strategies. What would you like to learn?"
+    
+    else:
+        return "🐸 I'm Coquito, here to help with Coqui POS! I can teach you about: payments, kitchen tickets, manager features, menu items, customer service, and efficiency tips. What specific topic interests you?"
 
 # ============================================
 # MENU ITEM ANALYTICS

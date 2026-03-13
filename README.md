@@ -1,14 +1,15 @@
-# 🐸 Coqui POS - Puerto Rico's Smart Restaurant System
+# 🐸 Coqui POS - Puerto Rican Restaurant Point of Sale System
 
-A modern, feature-rich Point of Sale system built for Demo Day presentation.
+A full-stack Point of Sale system for restaurants featuring order management, kitchen operations, payment processing, and business analytics with role-based access control.
 
 ## ✨ Features
 
 ### 🍽️ Menu Management
-- 5 category navigation (Beverages, Appetizers, Salads, Main Course, Desserts)
+- 6 categories: Beverages, Appetizers, Salads, Main Course, Sides, Desserts
 - Detailed item information: allergens, proteins, ingredients, sides
-- Professional menu cards with images and descriptions
-- Easy to customize and expand
+- Professional menu cards with Puerto Rican cuisine
+- **NEW:** Manager can add/remove menu items with password protection
+- Dynamic menu updates with localStorage persistence
 
 ### 🛒 Order Management
 - Add items to cart with quantity controls
@@ -28,200 +29,311 @@ A modern, feature-rich Point of Sale system built for Demo Day presentation.
 - Reprint Receipt functionality
 - All actions accessible after payment
 
-### 🔒 Manager Features
+### 🔒 Manager Features (Password: `admin123`)
 - **Sales Dashboard:** View daily, weekly, and monthly sales reports
 - **Week-by-Week Analysis:** Select Week 1, 2, 3, or 4 of current month
 - **Popular Items Analytics:** See top-selling menu items
 - **Refund Processing:** Process refunds with manager authorization
-- **Role-based Access Control:** Manager-only features
+- **Kitchen Tickets:** Void individual items or entire tickets
+- **Void Log:** Track all voided items with accountability
+- **Menu Manager:** Add/remove menu items dynamically
+- **Role-based Access Control:** Manager-only features protected by password
+
+### 🎫 Kitchen Ticket System
+- Send orders to kitchen with timestamps
+- Real-time timer tracking (color-coded urgency)
+- Open/Closed ticket workflow
+- Manager can void items or entire tickets
+- Full accountability trail with timestamps
 
 ### 📊 Backend Data Storage
-- Automatic order saving to backend
-- Sales statistics tracking
-- Order history
-- Popular items analytics
+- Automatic order saving to JSON files
+- Sales statistics tracking by day/week/month
+- Kitchen ticket management
+- Void log for accountability
+- Order history with full details
 
 ## 🚀 Quick Start
 
 ### Prerequisites
 - **Frontend:** Node.js (v18+) and npm
-- **Backend:** Python 3.8+
+- **Backend:** Python 3.8+ with Flask
+- **Browser:** Chrome, Firefox, or any modern browser
 
-### 1️⃣ Start the Backend
+### Option 1: One-Click Launch (Recommended)
 
+Double-click the **Coqui POS** icon from your applications menu. This will:
+1. Start both backend and frontend servers
+2. Open your browser automatically
+3. Display server logs in a terminal
+
+**Files involved:**
+- Desktop launcher: `~/.local/share/applications/coqui-pos.desktop`
+- Start script: `~/start-coqui-pos.sh`
+- Stop script: `~/stop-coqui-pos.sh`
+
+### Option 2: Manual Start
+
+**Terminal 1 - Backend:**
 ```bash
-# Navigate to backend
 cd backend
-
-# Install Python dependencies
-pip install -r requirements.txt
-
-# Run the Flask server
-python3 app.py
+source venv/bin/activate
+python app.py
 ```
+Backend runs on: **http://localhost:5000**
 
-Backend will run on: **http://localhost:5000**
-
-### 2️⃣ Start the Frontend
-
+**Terminal 2 - Frontend:**
 ```bash
-# Navigate to frontend (in a new terminal)
 cd frontend
-
-# Install dependencies (first time only)
-npm install
-
-# Run the development server
 npm run dev
 ```
+Frontend runs on: **http://localhost:5173**
 
-Frontend will run on: **http://localhost:5173**
+**Browser:**
+Navigate to `http://localhost:5173`
 
-## 🔐 Login Credentials
+## 🔐 Access Control
 
-**Employee Account:**
-- Role: Employee
-- Password: `employee123`
+### User Roles
+**Employee:**
+- Take orders and process payments
+- Send orders to kitchen
+- View kitchen tickets
 
-**Manager Account:**
-- Role: Manager  
-- Password: `admin123`
-- Has access to refund functionality
+**Manager:**
+- Everything Employee can do, PLUS:
+- View sales dashboard (`admin123`)
+- Process refunds (`admin123`)
+- Void tickets/items (`admin123`)
+- Access void log
+- Manage menu items (`admin123`)
+
+### Passwords
+- **All Manager Functions:** `admin123`
+- Login: No password (simplified for demo)
 
 ## 📁 Project Structure
 
 ```
 Coqui-POS/
 ├── backend/
-│   ├── app.py                  # Flask API server (all endpoints)
+│   ├── app.py                  # Flask API server (770 lines, 15+ endpoints)
+│   ├── venv/                   # Python virtual environment
 │   ├── requirements.txt        # Python dependencies
-│   └── database/               # Data storage
-│       ├── Coqui.db           # SQLite database
-│       ├── orders.json        # Order history (auto-created)
-│       └── sales.json         # Sales stats (auto-created)
+│   └── database/               # Data storage (JSON files)
+│       ├── orders.json         # Order history
+│       ├── sales.json          # Sales statistics
+│       ├── tickets.json        # Kitchen tickets
+│       └── voids.json          # Void log
 │
 ├── frontend/
 │   ├── src/
-│   │   ├── components/        # React components
-│   │   │   ├── Login.jsx      # Login screen
-│   │   │   ├── Header.jsx     # Top navigation
-│   │   │   ├── MenuItem.jsx   # Menu item cards
-│   │   │   ├── MenuPanel.jsx  # Category navigation
-│   │   │   ├── OrderCart.jsx  # Order summary & cart
+│   │   ├── components/         # React components (12 files)
+│   │   │   ├── Login.jsx       # User role selection
+│   │   │   ├── Header.jsx      # Navigation bar
+│   │   │   ├── POSScreen.jsx   # Main container
+│   │   │   ├── MenuPanel.jsx   # Menu display
+│   │   │   ├── MenuItem.jsx    # Menu item card
+│   │   │   ├── OrderCart.jsx   # Shopping cart
 │   │   │   ├── PaymentModal.jsx # Payment processing
-│   │   │   ├── SalesDashboard.jsx # Manager analytics
-│   │   │   └── POSScreen.jsx  # Main POS interface
+│   │   │   ├── SalesDashboard.jsx # Analytics (Manager)
+│   │   │   ├── KitchenTickets.jsx # Kitchen operations
+│   │   │   ├── VoidLog.jsx     # Void history (Manager)
+│   │   │   ├── MenuManager.jsx # Menu management (NEW!)
+│   │   │   └── AIAssistant.jsx # AI helper
 │   │   ├── data/
-│   │   │   └── menuData.js    # Menu items & categories
+│   │   │   └── menuData.js     # Menu items (6 categories)
 │   │   ├── styles/
-│   │   │   └── main.css       # All styling
+│   │   │   └── main.css        # All styling (2400+ lines)
 │   │   ├── assets/
 │   │   │   ├── coqui-logo-light.png
 │   │   │   └── coqui-logo-dark.png
-│   │   ├── App.jsx            # App entry point
-│   │   └── main.jsx           # React initialization
-│   ├── index.html             # HTML template
-│   ├── package.json           # Dependencies
-│   ├── vite.config.js         # Build config
-│   └── eslint.config.js       # Linting rules
+│   │   ├── App.jsx             # Root component
+│   │   └── main.jsx            # React entry
+│   ├── index.html              # HTML template
+│   ├── package.json            # Dependencies
+│   └── vite.config.js          # Vite configuration
 │
-└── README.md                   # Documentation
+├── coqui-icon.png              # Application icon
+├── Coqui-EZ_start.md           # Launcher documentation
+└── README.md                   # This file
 ```
 
-## 🎨 Customization Guide
+## 🎨 Customization
 
-### Add Menu Items
-Edit `frontend/src/data/menuData.js` - each category is clearly commented
+### Add/Remove Menu Items
+- **Via UI:** Use Menu Manager (Manager only, password: `admin123`)
+- **Via Code:** Edit `frontend/src/data/menuData.js`
 
 ### Change Styling
-Edit `frontend/src/styles/main.css` - sections are organized with comments
+Edit `frontend/src/styles/main.css` (2400+ lines, well-organized)
 
 ### Modify Tax Rate
-Edit `frontend/src/components/POSScreen.jsx` line 102 (currently 11.5%)
+`frontend/src/components/POSScreen.jsx` line 197 (currently 11.5% PR tax)
 
-### Change Passwords
-- Login: `frontend/src/components/Login.jsx` lines 10-13
-- Refund: `frontend/src/components/PaymentModal.jsx` line 137
+### Change Manager Password
+All manager functions use: `admin123`
+- Menu Manager: `MenuManager.jsx` line 10
+- Sales Dashboard: `SalesDashboard.jsx` line 30
+- Refunds: `PaymentModal.jsx` line 164
+- Voids: Backend `app.py` lines 635, 689
 
 ## 🌐 API Endpoints
 
-The backend provides these endpoints:
-
 **Orders:**
 - `POST /api/orders` - Create new order
-- `GET /api/orders` - Get all orders (with optional date/limit filters)
-- `GET /api/orders/:id` - Get specific order
-- `POST /api/orders/:id/refund` - Process refund (requires manager password)
+- `GET /api/orders` - Get all orders
+- `POST /api/orders/:id/refund` - Process refund (requires `admin123`)
 
 **Sales & Analytics:**
-- `GET /api/sales/stats` - Get overall sales statistics
-- `GET /api/sales/today` - Get today's sales summary
-- `GET /api/sales/week?week=1` - Get weekly sales (week 1-4 of month)
-- `GET /api/sales/month` - Get monthly sales with weekly breakdown
-- `GET /api/analytics/popular-items` - Get top 10 popular menu items
+- `GET /api/sales/stats` - Overall sales statistics
+- `GET /api/sales/day?day=15` - Daily sales for specific day
+- `GET /api/sales/week?week=2` - Weekly sales (week 1-4 of month)
+- `GET /api/sales/month?month=2` - Monthly sales with weekly breakdown
+- `GET /api/analytics/popular-items` - Top 10 menu items
 
-## 💡 Demo Day Tips
+**Kitchen Tickets:**
+- `POST /api/tickets` - Create kitchen ticket
+- `GET /api/tickets` - Get all tickets (filter by status)
+- `GET /api/tickets/:id` - Get specific ticket
+- `PATCH /api/tickets/:id/close` - Close ticket (payment completed)
+- `PATCH /api/tickets/:id/void-item` - Void single item (requires `admin123`)
+- `PATCH /api/tickets/:id/void` - Void entire ticket (requires `admin123`)
 
-1. **Before Presenting:**
-   - Start both backend and frontend
-   - Test a complete order flow
-   - Have sample menu item ready to add
-   - Clear any test orders if needed
+**Void Management:**
+- `GET /api/voids` - Get void log (Manager only)
 
-2. **During Demo:**
-   - Show login (employee vs manager)
-   - Browse different categories
-   - Add multiple items to cart
-   - Demonstrate quantity adjustments
-   - Show tip calculation
-   - Complete a payment (cash with change calculation)
-   - Show all print buttons
-   - **Click 📊 Sales button** (Manager only)
-   - Show daily, weekly, and monthly sales views
-   - Demonstrate week selection (Week 1-4)
-   - Show popular items analytics
-   - Demo refund (as manager)
+## 💡 Presentation Tips
 
-3. **Talking Points:**
-   - Puerto Rican menu focus
-   - Allergen & dietary information
-   - Complete sales tracking and analytics
-   - Manager dashboard with detailed reports
-   - Real-time calculations and data storage
-   - Week-by-week and monthly analysis
-   - Popular items tracking for inventory planning
+### Before Demo:
+1. Click **Coqui POS** icon to launch
+2. Wait for browser to open (auto-loads)
+3. Test a quick order flow
+4. Have `admin123` password ready
 
-## 🔧 Technical Stack
+### Demo Flow:
+
+**1. Login & Roles** (30 sec)
+- Show Employee vs Manager options
+- Explain role-based access
+
+**2. Taking Orders** (2 min)
+- Browse menu categories
+- Add items (show allergen info)
+- Adjust quantities
+- Show tax calculation (11.5% PR)
+
+**3. Payment** (1 min)
+- Add tip (10%, 15%, 20%, custom)
+- Show cash payment with change
+- Generate receipt
+- Send order to kitchen
+
+**4. Kitchen System** (1 min)
+- Open Kitchen Tickets
+- Show real-time timer
+- Explain color coding (green/yellow/red)
+- Demo void item (password: `admin123`)
+
+**5. Manager Features** (2 min)
+- Sales Dashboard (password required)
+  - Show daily/weekly/monthly views
+  - Popular items analytics
+- Void Log accountability
+- Menu Manager (add/remove items)
+
+### Key Talking Points:
+- Full-stack architecture (React + Flask)
+- Role-based security
+- Real-time kitchen operations
+- Business analytics for decision-making
+- Puerto Rican cuisine focus
+- Production-ready architecture (JSON → database swap)
+
+## 🔧 Technology Stack
 
 **Frontend:**
-- React 18
-- Vite (build tool)
-- Modern CSS (no frameworks)
+- React 19 (UI framework)
+- Vite (build tool - faster than Create React App)
+- Vanilla CSS (2400+ lines, no frameworks)
+- localStorage (menu customization)
 
 **Backend:**
-- Python Flask
-- JSON file storage (demo)
-- RESTful API design
+- Flask (Python web framework)
+- Flask-CORS (frontend-backend communication)
+- JSON files (data persistence)
+- RESTful API (15+ endpoints)
+
+**Architecture:**
+- Frontend: `http://localhost:5173` (Vite dev server)
+- Backend: `http://localhost:5000` (Flask server)
+- Communication: `fetch()` API with CORS enabled
+- Data Flow: React → Flask → JSON files
+
+## 📈 Project Stats
+
+- **Lines of Code:** ~4,000+ (frontend + backend)
+- **Components:** 12 React components
+- **API Endpoints:** 15+ RESTful routes
+- **CSS:** 2,400+ lines of custom styling
+- **Features:** 8 major feature sets
+- **Roles:** 2 (Employee, Manager)
+- **Development Time:** February 2026
 
 ## 📝 Future Enhancements
 
-- Real database (PostgreSQL/MySQL)
-- Actual payment gateway integration
-- Printer integration
-- Table management
-- Inventory tracking
-- Employee time tracking
-- Advanced reporting dashboard
+**Infrastructure:**
+- PostgreSQL/MySQL database
+- User authentication with JWT
+- Docker containerization
+
+**Features:**
+- Payment gateway (Stripe/Square)
+- Thermal printer integration
+- Table/reservation management
+- Inventory tracking with alerts
+- Employee time clock
 - Mobile responsive design
+- Multi-location support
+
+**Analytics:**
+- Advanced reporting dashboard
+- Sales forecasting
+- Employee performance metrics
 
 ## 👨‍💻 Development
 
-Built for Holberton School Demo Day
+**Built by:** Gerald D. Carrasquillo  
+**School:** Holberton School  
+**Purpose:** Capstone Project / Demo Day Presentation  
+**Date:** February 2026
+
+### Key Learning Outcomes:
+- Full-stack web development
+- RESTful API design
+- Role-based access control
+- State management in React
+- Business logic implementation
+- Data persistence strategies
 
 ## 📄 License
 
-MIT License - Feel free to use for your own projects!
+MIT License - Free to use for educational and personal projects
+
+## 🐛 Known Issues
+
+- Menu changes persist in localStorage only (not in source code)
+- No actual printer integration (simulated)
+- Simple authentication (no password hashing)
+- JSON storage (demo only, use database for production)
+
+## 📞 Support
+
+For questions or issues:
+1. Check `Coqui-EZ_start.md` for launcher documentation
+2. Review this README
+3. Contact: Gerald.froz@outlook.com
 
 ---
 
-**Note:** Backend is optional for demo. Frontend will work without it, but orders won't be saved.
+**🐸 Built with pride for Demo Day!**

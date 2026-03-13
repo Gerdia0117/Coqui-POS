@@ -4,8 +4,8 @@
 // Main menu display with category navigation
 // Shows menu items filtered by selected category
 
-import { useState } from "react";
-import { menuData, categories } from "../data/menuData";
+import { useState, useEffect } from "react";
+import { menuData as initialMenuData, categories } from "../data/menuData";
 import MenuItem from "./MenuItem";
 
 export default function MenuPanel({ onAddToOrder }) {
@@ -13,6 +13,37 @@ export default function MenuPanel({ onAddToOrder }) {
   // STATE MANAGEMENT
   // ============================================
   const [selectedCategory, setSelectedCategory] = useState("beverages");
+  const [menuData, setMenuData] = useState(initialMenuData);
+
+  // ============================================
+  // LOAD CUSTOM MENU FROM LOCALSTORAGE
+  // ============================================
+  useEffect(() => {
+    const loadMenuData = () => {
+      const savedMenu = localStorage.getItem("customMenuData");
+      if (savedMenu) {
+        try {
+          setMenuData(JSON.parse(savedMenu));
+        } catch (e) {
+          console.error("Error loading saved menu:", e);
+        }
+      }
+    };
+
+    // Load initially
+    loadMenuData();
+
+    // Listen for storage changes (when MenuManager updates menu)
+    window.addEventListener('storage', loadMenuData);
+
+    // Also poll periodically for same-tab changes
+    const interval = setInterval(loadMenuData, 1000);
+
+    return () => {
+      window.removeEventListener('storage', loadMenuData);
+      clearInterval(interval);
+    };
+  }, []);
 
   // ============================================
   // GET ITEMS FOR SELECTED CATEGORY

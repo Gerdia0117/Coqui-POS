@@ -402,18 +402,6 @@ export const menuData = {
       proteins: [],
       ingredients: ["Mixed Greens", "Tomatoes", "Cucumbers", "Red Onion", "Olive Oil", "Vinegar"],
       sides: []
-    },
-    {
-      id: "side-10",
-      name: "Amarillos con Queso",
-      price: 5.99,
-      category: "sides",
-      image: "/images/amarillos-queso.jpg",
-      description: "Sweet plantains topped with melted white cheese",
-      allergens: ["dairy"],
-      proteins: [],
-      ingredients: ["Ripe Plantains", "White Cheese", "Vegetable Oil", "Salt"],
-      sides: []
     }
   ]
 };

@@ -62,11 +62,33 @@ export default function PaymentModal({
 
   // Handle Card Payment
   const handleCardPayment = () => {
-    // In real implementation, integrate with card processor
-    alert("Processing card payment...");
+    // Realistic card payment simulation
+    setPaymentMethod("processing");
+    
+    // Step 1: Connecting to terminal
+    setTimeout(() => {
+      setPaymentMethod("terminal-connected");
+    }, 800);
+    
+    // Step 2: Reading card
+    setTimeout(() => {
+      setPaymentMethod("reading-card");
+    }, 1600);
+    
+    // Step 3: Authorizing
+    setTimeout(() => {
+      setPaymentMethod("authorizing");
+    }, 2400);
+    
+    // Step 4: Approved
+    setTimeout(() => {
+      setPaymentMethod("approved");
+    }, 3200);
+    
+    // Step 5: Complete payment
     setTimeout(() => {
       completePayment("card");
-    }, 1000);
+    }, 4000);
   };
 
   // Complete Payment
@@ -304,16 +326,84 @@ export default function PaymentModal({
         {/* ============================================ */}
         {!paymentCompleted && paymentMethod === "card" && (
           <div className="card-payment-section">
-            <h3>Card Payment</h3>
-            <p>Total to charge: <strong>${grandTotal.toFixed(2)}</strong></p>
+            <h3>💳 Card Payment</h3>
+            <div className="card-terminal-display">
+              <div className="terminal-screen">
+                <p className="terminal-text">💳 Card Terminal Ready</p>
+                <p className="amount-display">Amount: ${grandTotal.toFixed(2)}</p>
+              </div>
+            </div>
+            <p className="instruction-text">Insert, tap, or swipe card when ready</p>
             <div className="payment-actions">
               <button onClick={() => setPaymentMethod(null)}>← Back</button>
               <button 
-                className="complete-payment-btn"
+                className="complete-payment-btn card-process-btn"
                 onClick={handleCardPayment}
               >
-                Process Card Payment
+                🔄 Process Card Payment
               </button>
+            </div>
+          </div>
+        )}
+        
+        {/* ============================================ */}
+        {/* CARD PROCESSING ANIMATION */}
+        {/* ============================================ */}
+        {!paymentCompleted && paymentMethod === "processing" && (
+          <div className="card-payment-section">
+            <div className="card-terminal-display processing">
+              <div className="terminal-screen">
+                <div className="processing-spinner"></div>
+                <p className="terminal-text">Connecting to terminal...</p>
+              </div>
+            </div>
+          </div>
+        )}
+        
+        {!paymentCompleted && paymentMethod === "terminal-connected" && (
+          <div className="card-payment-section">
+            <div className="card-terminal-display processing">
+              <div className="terminal-screen">
+                <div className="processing-spinner"></div>
+                <p className="terminal-text">✓ Terminal Connected</p>
+                <p className="terminal-text">Reading card...</p>
+              </div>
+            </div>
+          </div>
+        )}
+        
+        {!paymentCompleted && paymentMethod === "reading-card" && (
+          <div className="card-payment-section">
+            <div className="card-terminal-display processing">
+              <div className="terminal-screen">
+                <div className="processing-spinner"></div>
+                <p className="terminal-text">✓ Card Detected</p>
+                <p className="terminal-text">Authorizing transaction...</p>
+              </div>
+            </div>
+          </div>
+        )}
+        
+        {!paymentCompleted && paymentMethod === "authorizing" && (
+          <div className="card-payment-section">
+            <div className="card-terminal-display processing">
+              <div className="terminal-screen">
+                <div className="processing-spinner"></div>
+                <p className="terminal-text">Contacting bank...</p>
+                <p className="terminal-text">Amount: ${grandTotal.toFixed(2)}</p>
+              </div>
+            </div>
+          </div>
+        )}
+        
+        {!paymentCompleted && paymentMethod === "approved" && (
+          <div className="card-payment-section">
+            <div className="card-terminal-display approved">
+              <div className="terminal-screen">
+                <div className="approval-checkmark">✓</div>
+                <p className="terminal-text success">APPROVED</p>
+                <p className="terminal-text">Processing receipt...</p>
+              </div>
             </div>
           </div>
         )}

@@ -5,31 +5,67 @@ export default function AIAssistant({ onClose }) {
   const [messages, setMessages] = useState([
     {
       role: "assistant",
-      content: "Hello! I'm your AI Assistant. How can I help you today? 🤖"
+      content: "🐸 ¡Hola! I'm Coquito, your Coqui POS training assistant! I can help you learn how to use the system, teach customer service tips, and share strategies for success. What would you like to know?"
     }
   ]);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSendMessage = () => {
-    if (!userMessage.trim()) return;
+  const handleSendMessage = async () => {
+    if (!userMessage.trim() || isLoading) return;
 
+    const currentMessage = userMessage;
+    
     // Add user message to chat
     const newMessages = [
       ...messages,
-      { role: "user", content: userMessage }
+      { role: "user", content: currentMessage }
     ];
     setMessages(newMessages);
     setUserMessage("");
+    setIsLoading(true);
 
-    // Placeholder for AI response (to be implemented later)
-    setTimeout(() => {
+    // Call backend API to get Coquito's response
+    try {
+      const response = await fetch('http://localhost:5000/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message: currentMessage })
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setMessages([
+          ...newMessages,
+          {
+            role: "assistant",
+            content: data.response
+          }
+        ]);
+      } else {
+        // Fallback if backend fails
+        setMessages([
+          ...newMessages,
+          {
+            role: "assistant",
+            content: "🐸 Sorry, I'm having trouble connecting to my knowledge base. Try asking: 'How do I process a payment?' or 'What are good customer service tips?'"
+          }
+        ]);
+      }
+    } catch (error) {
+      console.error('Coquito API Error:', error);
+      // Fallback response
       setMessages([
         ...newMessages,
         {
           role: "assistant",
-          content: "AI functionality will be added here. This is a placeholder response."
+          content: "🐸 Oops! I'm having connection issues. Make sure the backend server is running. In the meantime, ask me about: payments, kitchen tickets, manager features, or customer service!"
         }
       ]);
-    }, 500);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleKeyPress = (e) => {
@@ -44,7 +80,7 @@ export default function AIAssistant({ onClose }) {
       <div className="ai-assistant-modal">
         {/* Header */}
         <div className="ai-assistant-header">
-          <h2>🐸 AI Assistant</h2>
+          <h2>🐸 Coquito - POS Training Assistant</h2>
           <button className="close-btn" onClick={onClose}>
             ✕
           </button>
@@ -57,11 +93,27 @@ export default function AIAssistant({ onClose }) {
               key={index}
               className={`ai-message ${message.role}`}
             >
+              <div className="message-avatar">
+                {message.role === "assistant" ? "🐸" : "👤"}
+              </div>
               <div className="message-content">
                 {message.content}
               </div>
             </div>
           ))}
+          {isLoading && (
+            <div className="ai-message assistant">
+              <div className="message-avatar">🐸</div>
+              <div className="message-content loading">
+                <span className="typing-indicator">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </span>
+                Coquito is thinking...
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Input Area */}
@@ -70,11 +122,16 @@ export default function AIAssistant({ onClose }) {
             value={userMessage}
             onChange={(e) => setUserMessage(e.target.value)}
             onKeyPress={handleKeyPress}
-            placeholder="Ask me anything..."
+            placeholder="Ask Coquito about payments, customer service, manager features..."
             rows="3"
+            disabled={isLoading}
           />
-          <button onClick={handleSendMessage} className="send-btn">
-            Send
+          <button 
+            onClick={handleSendMessage} 
+            className="send-btn"
+            disabled={isLoading || !userMessage.trim()}
+          >
+            {isLoading ? "Sending..." : "Send"}
           </button>
         </div>
       </div>

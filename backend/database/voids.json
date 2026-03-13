@@ -1,0 +1,53 @@
+[
+  {
+    "voidId": "VOID-1772080890566",
+    "type": "item",
+    "ticketId": "TKT-1772080818118",
+    "item": {
+      "name": "Caf\u00e9 con Leche",
+      "quantity": 1,
+      "sentAt": "2026-02-26T00:40:18.118577"
+    },
+    "voidedAt": "2026-02-26T00:41:30.566578",
+    "voidedBy": "Manager",
+    "originalSentBy": "Manager",
+    "reason": "Costumer didn't order this."
+  },
+  {
+    "voidId": "VOID-1772080937053",
+    "type": "ticket",
+    "ticketId": "TKT-1772080818118",
+    "items": [
+      {
+        "name": "Fresh Squeezed Orange Juice",
+        "quantity": 1,
+        "sentAt": "2026-02-26T00:40:18.118577"
+      },
+      {
+        "name": "Mojito",
+        "quantity": 2,
+        "sentAt": "2026-02-26T00:40:18.118577"
+      }
+    ],
+    "voidedAt": "2026-02-26T00:42:17.053864",
+    "voidedBy": "Manager",
+    "originalSentBy": "Manager",
+    "reason": "Testing void function"
+  },
+  {
+    "voidId": "VOID-1773365606401",
+    "type": "ticket",
+    "ticketId": "TKT-1772128222496",
+    "items": [
+      {
+        "name": "Old Fashion",
+        "quantity": 1,
+        "sentAt": "2026-02-26T13:50:22.496346"
+      }
+    ],
+    "voidedAt": "2026-03-12T21:33:26.400853",
+    "voidedBy": "Manager",
+    "originalSentBy": "Manager",
+    "reason": "on the house"
+  }
+]
