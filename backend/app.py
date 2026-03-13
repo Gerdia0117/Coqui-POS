@@ -1174,9 +1174,38 @@ def get_fallback_response(message, user_role='Employee'):
     if user_role == 'Manager' and any(word in message_lower for word in ['manager', 'sales', 'void', 'analytics']):
         return "🐸 Manager features (password: admin123): 📊 Sales Dashboard for analytics, 🚫 Void Log for accountability, 🍽️ Menu Manager to add/remove items. All require password for security."
     
-    # Hello/help
-    if any(word in message_lower for word in ['hello', 'hi', 'help', 'hola']):
-        return "🐸 ¡Hola! I'm Coquito, your POS training assistant! Ask me about: taking orders, payments, dealing with rude customers, work ethics, customer service, or any POS operation. What do you need help with?"
+    # Conversational responses
+    if any(word in message_lower for word in ['hello', 'hi', 'hey', 'hola', 'good morning', 'good afternoon', 'good evening']):
+        import datetime
+        hour = datetime.datetime.now().hour
+        if hour < 12:
+            greeting = "¡Buenos días!"
+        elif hour < 18:
+            greeting = "¡Buenas tardes!"
+        else:
+            greeting = "¡Buenas noches!"
+        return f"🐸 {greeting} I'm Coquito! How can I help you today? Ask me about POS operations, customer service, work ethics, or menu items!"
+    
+    # Date and time
+    if any(word in message_lower for word in ['date', 'today', 'day', 'time']):
+        import datetime
+        now = datetime.datetime.now()
+        if 'time' in message_lower:
+            return f"🐸 Right now it's {now.strftime('%I:%M %p')} on {now.strftime('%A, %B %d, %Y')}. What else can I help you with?"
+        else:
+            return f"🐸 Today is {now.strftime('%A, %B %d, %Y')}. Need help with anything else?"
+    
+    # Thank you
+    if any(word in message_lower for word in ['thank', 'thanks', 'gracias']):
+        return "🐸 ¡De nada! Happy to help! Let me know if you need anything else. ¡Buen provecho!"
+    
+    # How are you
+    if any(phrase in message_lower for phrase in ['how are you', 'how r u', 'como estas']):
+        return "🐸 I'm doing great, thanks for asking! Ready to help you succeed at Coqui POS. What would you like to know?"
+    
+    # Help/general
+    if 'help' in message_lower and len(message_lower.split()) <= 3:
+        return "🐸 I can help with: taking orders, payments, dealing with rude customers, work ethics, customer service, menu items, and more! What specific topic interests you?"
     
     # Default
     else:

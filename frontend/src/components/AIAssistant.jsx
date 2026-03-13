@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export default function AIAssistant({ onClose, userRole }) {
   const [userMessage, setUserMessage] = useState("");
@@ -9,6 +9,16 @@ export default function AIAssistant({ onClose, userRole }) {
     }
   ]);
   const [isLoading, setIsLoading] = useState(false);
+  const messagesEndRef = useRef(null);
+
+  // Auto-scroll to bottom when messages change
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
 
   const handleSendMessage = async () => {
     if (!userMessage.trim() || isLoading) return;
@@ -117,6 +127,7 @@ export default function AIAssistant({ onClose, userRole }) {
               </div>
             </div>
           )}
+          <div ref={messagesEndRef} />
         </div>
 
         {/* Input Area */}
