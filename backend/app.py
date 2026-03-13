@@ -770,13 +770,16 @@ def chat_with_coquito():
         # Check if OpenAI is available and configured
         if not OPENAI_AVAILABLE:
             # Fallback response without OpenAI
+            print('⚠️ OpenAI library not available - using fallback')
             response_text = get_fallback_response(user_message, user_role)
         else:
             # Get OpenAI API key from environment variable
             api_key = os.getenv('OPENAI_API_KEY')
+            print(f'🔑 API Key present: {"Yes" if api_key else "No"}')
             
             if not api_key:
                 # No API key, use fallback
+                print('⚠️ No API key found - using fallback')
                 response_text = get_fallback_response(user_message, user_role)
             else:
                 # Use OpenAI
@@ -1061,6 +1064,7 @@ SPANISH VOCABULARY FOR MENU:
                     )
                     
                     response_text = completion.choices[0].message.content
+                    print(f'✅ OpenAI response generated for {user_role}')
                     
                 except Exception as e:
                     print(f'OpenAI API Error: {str(e)}')
