@@ -1133,9 +1133,41 @@ def get_fallback_response(message, user_role='Employee'):
     if 'customer' in message_lower or 'service' in message_lower:
         return "🐸 Great customer service: Greet warmly, explain Puerto Rican dishes, suggest pairings (tostones with mofongo!), always offer beverages and desserts. Upselling increases your tips! Smile, be patient, thank them sincerely."
     
-    # Menu
-    if 'menu' in message_lower or 'food' in message_lower:
-        return "🐸 Our menu: Beverages (Piña Colada, Mojito), Appetizers (Tostones, Alcapurrias), Main Course (Mofongo, Pernil, Arroz con Pollo), Sides (Rice & Beans, Maduros), Desserts (Flan de Coco, Tres Leches). Explain dishes to customers!"
+    # Allergies and ingredients
+    if any(word in message_lower for word in ['allerg', 'gluten', 'dairy', 'nut', 'shellfish', 'ingredient']):
+        return "🐸 Common allergens in our menu:\n• GLUTEN: Empanadillas, Alcapurrias (fried dough)\n• DAIRY: Flan, Tres Leches, Tembleque (coconut milk)\n• SHELLFISH: None (unless customer orders seafood)\n• NUTS: Generally none\n• SOY: Check with kitchen for specific dishes\n\nALWAYS warn kitchen about allergies! Click menu items to see full ingredient lists. When in doubt, ask the manager."
+    
+    # Specific menu items
+    if 'mofongo' in message_lower:
+        return "🐸 Mofongo: Mashed fried plantains with garlic, olive oil, and pork cracklings. Served with choice of protein (chicken, shrimp, pernil). Gluten-free! Tell customers: 'It's like garlicky mashed potatoes but made with plantains - very traditional!'"
+    
+    if 'tostones' in message_lower or 'tostone' in message_lower:
+        return "🐸 Tostones: Twice-fried green plantains, crispy outside and soft inside. Served with garlic dipping sauce (mayo-ketchup). Gluten-free, vegetarian. Perfect appetizer or side! Tell customers: 'Think of them as Puerto Rican french fries!'"
+    
+    if 'pernil' in message_lower:
+        return "🐸 Pernil: Slow-roasted pork shoulder marinated 24+ hours in garlic, oregano, and citrus. Super tender and flavorful. Gluten-free. Our most popular main dish! Pairs perfectly with rice & beans."
+    
+    if 'alcapurria' in message_lower:
+        return "🐸 Alcapurrias: Fritters made from yucca/plantain dough stuffed with seasoned ground beef. Fried golden and crispy. Contains GLUTEN. Tell customers: 'It's like a Puerto Rican empanada but fried in a torpedo shape!'"
+    
+    if 'flan' in message_lower:
+        return "🐸 Flan de Coco: Creamy coconut custard with caramel sauce. Made with eggs, coconut milk, condensed milk. Contains DAIRY and EGGS. Gluten-free. Tell customers: 'It's like crème brûlée but with coconut flavor - silky smooth!'"
+    
+    if 'tembleque' in message_lower:
+        return "🐸 Tembleque: Coconut pudding made with coconut milk, cornstarch, and cinnamon. Dairy-free, gluten-free, vegan! Jiggly texture (that's why it's called 'tembleque' - means 'wobbly'). Light and refreshing dessert!"
+    
+    if 'tres leches' in message_lower or 'tres' in message_lower:
+        return "🐸 Tres Leches: Ultra-moist sponge cake soaked in three types of milk (evaporated, condensed, heavy cream). Topped with whipped cream. Contains DAIRY, EGGS, GLUTEN. Very sweet! Tell customers: 'It's the moistest cake you'll ever have!'"
+    
+    if 'arroz con pollo' in message_lower or 'rice and chicken' in message_lower:
+        return "🐸 Arroz con Pollo: Yellow rice cooked with chicken, peppers, peas, and spices. One-pot comfort food. Gluten-free. Kid-friendly! Tell customers: 'It's like a Puerto Rican paella - hearty and flavorful!'"
+    
+    if 'piña colada' in message_lower or 'pina colada' in message_lower:
+        return "🐸 Piña Colada: Blended coconut cream, pineapple juice, and rum (optional - ask if they want virgin). Puerto Rico's national drink! Contains DAIRY (coconut cream). Refreshing and tropical!"
+    
+    # General menu
+    if 'menu' in message_lower or 'food' in message_lower or 'dish' in message_lower:
+        return "🐸 Our Puerto Rican menu:\n• Beverages: Piña Colada, Mojito, Café con Leche\n• Appetizers: Tostones, Alcapurrias, Empanadillas\n• Mains: Mofongo, Pernil, Arroz con Pollo\n• Sides: Rice & Beans, Maduros, Yuca\n• Desserts: Flan de Coco, Tembleque, Tres Leches\n\nAsk me about specific dishes for ingredients and allergens!"
     
     # Manager features (for managers)
     if user_role == 'Manager' and any(word in message_lower for word in ['manager', 'sales', 'void', 'analytics']):
