@@ -88,6 +88,8 @@ export default function POSScreen({
 
   // Helper function to enrich ticket items with prices from menuData
   const enrichTicketItems = (items) => {
+    console.log('🔍 Enriching ticket items:', items);
+    
     // Flatten all menu items into a single lookup map
     const allMenuItems = Object.values(menuData).flat();
     const menuItemsMap = {};
@@ -95,10 +97,14 @@ export default function POSScreen({
       menuItemsMap[item.id] = item;
     });
 
+    console.log('📋 Menu items map has', Object.keys(menuItemsMap).length, 'items');
+
     // Enrich each ticket item with price data
-    return items.map(item => {
+    const enriched = items.map(item => {
+      console.log('🔎 Looking up item:', item.id, item.name);
       const menuItem = menuItemsMap[item.id];
       if (menuItem) {
+        console.log('✅ Found! Price:', menuItem.price);
         return {
           ...item,
           price: menuItem.price,
@@ -106,11 +112,15 @@ export default function POSScreen({
         };
       }
       // Fallback if item not found in menu
+      console.warn('⚠️ Item not found in menu:', item.id, item.name);
       return {
         ...item,
         price: item.price || 0
       };
     });
+    
+    console.log('✅ Enriched items:', enriched);
+    return enriched;
   };
 
   // Proceed to payment
