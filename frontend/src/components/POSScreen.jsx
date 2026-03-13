@@ -327,7 +327,7 @@ export default function POSScreen({
       {/* AI ASSISTANT MODAL */}
       {/* ============================================ */}
       {showAIAssistant && (
-        <AIAssistant onClose={handleCloseAIAssistant} />
+        <AIAssistant onClose={handleCloseAIAssistant} userRole={userRole} />
       )}
 
       {/* ============================================ */}

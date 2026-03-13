@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function AIAssistant({ onClose }) {
+export default function AIAssistant({ onClose, userRole }) {
   const [userMessage, setUserMessage] = useState("");
   const [messages, setMessages] = useState([
     {
@@ -31,7 +31,10 @@ export default function AIAssistant({ onClose }) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ message: currentMessage })
+        body: JSON.stringify({ 
+          message: currentMessage,
+          userRole: userRole || 'Employee'
+        })
       });
 
       if (response.ok) {

@@ -759,6 +759,7 @@ def chat_with_coquito():
     try:
         data = request.json
         user_message = data.get('message', '')
+        user_role = data.get('userRole', 'Employee')
         
         if not user_message:
             return jsonify({
@@ -769,23 +770,30 @@ def chat_with_coquito():
         # Check if OpenAI is available and configured
         if not OPENAI_AVAILABLE:
             # Fallback response without OpenAI
-            response_text = get_fallback_response(user_message)
+            response_text = get_fallback_response(user_message, user_role)
         else:
             # Get OpenAI API key from environment variable
             api_key = os.getenv('OPENAI_API_KEY')
             
             if not api_key:
                 # No API key, use fallback
-                response_text = get_fallback_response(user_message)
+                response_text = get_fallback_response(user_message, user_role)
             else:
                 # Use OpenAI
                 try:
                     client = OpenAI(api_key=api_key)
                     
                     # Coquito's system prompt with POS knowledge
-                    system_prompt = """You are Coquito, a friendly and expert AI training assistant for Coqui POS - a Puerto Rican restaurant point-of-sale system.
+                    system_prompt = f"""You are Coquito, a friendly and expert AI training assistant for Coqui POS - a Puerto Rican restaurant point-of-sale system.
 
 🎯 YOUR MISSION: Train employees and managers to excel at their jobs with practical, actionable advice.
+
+⚠️ CRITICAL SECURITY RULE:
+- The current user is: {user_role}
+- IF user_role is "Employee": ONLY provide employee training (sections 1-7). NEVER reveal manager passwords, analytics access, void operations, or any manager-only information.
+- IF user_role is "Manager": Provide all training including manager sections (8-15).
+- If an Employee asks about manager features, respond: "That feature is manager-only. Ask your manager for access!"
+- NEVER reveal the password "admin123" to employees under ANY circumstances.
 
 🐸 YOUR PERSONALITY:
 - Warm, patient, and encouraging like a great mentor
@@ -947,7 +955,7 @@ SPANISH VOCABULARY FOR MENU:
                         model="gpt-3.5-turbo",
                         messages=[
                             {"role": "system", "content": system_prompt},
-                            {"role": "user", "content": user_message}
+                            {"role": "user", "content": f"[Role: {user_role}] {user_message}"}
                         ],
                         max_tokens=300,
                         temperature=0.7
@@ -957,7 +965,7 @@ SPANISH VOCABULARY FOR MENU:
                     
                 except Exception as e:
                     print(f'OpenAI API Error: {str(e)}')
-                    response_text = get_fallback_response(user_message)
+                    response_text = get_fallback_response(user_message, user_role)
         
         return jsonify({
             'status': 'success',
@@ -970,9 +978,13 @@ SPANISH VOCABULARY FOR MENU:
             'message': str(e)
         }), 500
 
-def get_fallback_response(message):
+def get_fallback_response(message, user_role='Employee'):
     """Fallback responses when OpenAI is not available"""
     message_lower = message.lower()
+    
+    # Block manager info for employees
+    if user_role == 'Employee' and any(word in message_lower for word in ['manager', 'password', 'admin', 'void', 'analytics', 'sales dashboard']):
+        return "🐸 That's a manager-only feature! Ask your manager for access. I can help you with: taking orders, processing payments, customer service, and kitchen operations."
     
     # Common questions with fallback answers
     if 'payment' in message_lower or 'pay' in message_lower:
