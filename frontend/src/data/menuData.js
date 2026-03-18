@@ -1,12 +1,11 @@
 // ============================================
 // MENU DATA STRUCTURE
 // ============================================
-// This file contains all menu items organized by categories
-// Each item includes: name, price, image, description, allergens, proteins, ingredients, and sides
+// Images sourced from Unsplash (free, no attribution required for commercial use)
 
 export const menuData = {
   // ============================================
-  // BEVERAGES CATEGORY (includes bar options)
+  // BEVERAGES
   // ============================================
   beverages: [
     {
@@ -15,7 +14,7 @@ export const menuData = {
       price: 8.99,
       category: "beverages",
       type: "bar",
-      image: "/images/pina-colada.jpg",
+      image: "https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=400&h=300&fit=crop",
       description: "Classic Puerto Rican cocktail with rum, coconut cream, and pineapple",
       allergens: ["coconut"],
       proteins: [],
@@ -28,7 +27,7 @@ export const menuData = {
       price: 7.99,
       category: "beverages",
       type: "bar",
-      image: "/images/mojito.jpg",
+      image: "https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=400&h=300&fit=crop",
       description: "Refreshing mint and lime cocktail",
       allergens: [],
       proteins: [],
@@ -41,7 +40,7 @@ export const menuData = {
       price: 4.99,
       category: "beverages",
       type: "non-alcoholic",
-      image: "/images/orange-juice.jpg",
+      image: "https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?w=400&h=300&fit=crop",
       description: "Freshly squeezed Florida oranges",
       allergens: [],
       proteins: [],
@@ -54,7 +53,7 @@ export const menuData = {
       price: 3.99,
       category: "beverages",
       type: "non-alcoholic",
-      image: "/images/cafe-con-leche.jpg",
+      image: "https://images.unsplash.com/photo-1561882468-9110e03e0f78?w=400&h=300&fit=crop",
       description: "Strong Puerto Rican coffee with steamed milk",
       allergens: ["dairy"],
       proteins: [],
@@ -64,7 +63,7 @@ export const menuData = {
   ],
 
   // ============================================
-  // APPETIZERS CATEGORY
+  // APPETIZERS
   // ============================================
   appetizers: [
     {
@@ -72,7 +71,7 @@ export const menuData = {
       name: "Tostones",
       price: 6.99,
       category: "appetizers",
-      image: "/images/tostones.jpg",
+      image: "https://images.unsplash.com/photo-1590301157890-4810ed352733?w=400&h=300&fit=crop",
       description: "Twice-fried green plantains served with garlic sauce",
       allergens: [],
       proteins: [],
@@ -84,8 +83,8 @@ export const menuData = {
       name: "Alcapurrias",
       price: 8.99,
       category: "appetizers",
-      image: "/images/alcapurrias.jpg",
-      description: "Fried fritters stuffed with beef",
+      image: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&h=300&fit=crop",
+      description: "Fried fritters stuffed with seasoned beef",
       allergens: ["gluten"],
       proteins: ["beef"],
       ingredients: ["Green Banana", "Yautía", "Ground Beef", "Sofrito", "Annatto Oil"],
@@ -96,7 +95,7 @@ export const menuData = {
       name: "Empanadillas",
       price: 7.99,
       category: "appetizers",
-      image: "/images/empanadillas.jpg",
+      image: "https://images.unsplash.com/photo-1604177091072-6e6f28ce7e7f?w=400&h=300&fit=crop",
       description: "Crispy turnovers filled with chicken or beef",
       allergens: ["gluten", "eggs"],
       proteins: ["chicken", "beef"],
@@ -108,7 +107,7 @@ export const menuData = {
       name: "Bacalaítos",
       price: 6.99,
       category: "appetizers",
-      image: "/images/bacalaitos.jpg",
+      image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&h=300&fit=crop",
       description: "Crispy codfish fritters",
       allergens: ["fish", "gluten"],
       proteins: ["fish"],
@@ -118,7 +117,7 @@ export const menuData = {
   ],
 
   // ============================================
-  // SALADS CATEGORY
+  // SALADS
   // ============================================
   salads: [
     {
@@ -126,7 +125,7 @@ export const menuData = {
       name: "Ensalada de Aguacate",
       price: 9.99,
       category: "salads",
-      image: "/images/avocado-salad.jpg",
+      image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop",
       description: "Fresh avocado salad with tomatoes and onions",
       allergens: [],
       proteins: [],
@@ -138,7 +137,7 @@ export const menuData = {
       name: "Caesar Salad",
       price: 8.99,
       category: "salads",
-      image: "/images/caesar-salad.jpg",
+      image: "https://images.unsplash.com/photo-1546793665-c74683f339c1?w=400&h=300&fit=crop",
       description: "Classic Caesar with romaine, parmesan, and croutons",
       allergens: ["dairy", "gluten", "eggs", "fish"],
       proteins: [],
@@ -150,7 +149,7 @@ export const menuData = {
       name: "Tropical Fruit Salad",
       price: 7.99,
       category: "salads",
-      image: "/images/fruit-salad.jpg",
+      image: "https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?w=400&h=300&fit=crop",
       description: "Fresh tropical fruits with honey-lime dressing",
       allergens: [],
       proteins: [],
@@ -160,7 +159,7 @@ export const menuData = {
   ],
 
   // ============================================
-  // MAIN COURSE CATEGORY
+  // MAIN COURSE
   // ============================================
   mainCourse: [
     {
@@ -168,7 +167,7 @@ export const menuData = {
       name: "Mofongo con Camarones",
       price: 18.99,
       category: "mainCourse",
-      image: "/images/mofongo-camarones.jpg",
+      image: "https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=400&h=300&fit=crop",
       description: "Mashed plantains with garlic and shrimp in creole sauce",
       allergens: ["shellfish"],
       proteins: ["shrimp"],
@@ -180,7 +179,7 @@ export const menuData = {
       name: "Pernil Asado",
       price: 16.99,
       category: "mainCourse",
-      image: "/images/pernil.jpg",
+      image: "https://images.unsplash.com/photo-1544025162-d76694265947?w=400&h=300&fit=crop",
       description: "Slow-roasted pork shoulder marinated in adobo",
       allergens: [],
       proteins: ["pork"],
@@ -192,7 +191,7 @@ export const menuData = {
       name: "Arroz con Pollo",
       price: 14.99,
       category: "mainCourse",
-      image: "/images/arroz-con-pollo.jpg",
+      image: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=400&h=300&fit=crop",
       description: "Yellow rice with chicken, vegetables, and saffron",
       allergens: [],
       proteins: ["chicken"],
@@ -204,7 +203,7 @@ export const menuData = {
       name: "Churrasco",
       price: 22.99,
       category: "mainCourse",
-      image: "/images/churrasco.jpg",
+      image: "https://images.unsplash.com/photo-1558030006-450675393462?w=400&h=300&fit=crop",
       description: "Grilled skirt steak with chimichurri sauce",
       allergens: [],
       proteins: ["beef"],
@@ -216,7 +215,7 @@ export const menuData = {
       name: "Pescado Frito",
       price: 17.99,
       category: "mainCourse",
-      image: "/images/pescado-frito.jpg",
+      image: "https://images.unsplash.com/photo-1519984388953-d2406bc725e1?w=400&h=300&fit=crop",
       description: "Whole fried red snapper with garlic sauce",
       allergens: ["fish"],
       proteins: ["fish"],
@@ -228,7 +227,7 @@ export const menuData = {
       name: "Ropa Vieja",
       price: 15.99,
       category: "mainCourse",
-      image: "/images/ropa-vieja.jpg",
+      image: "https://images.unsplash.com/photo-1547592180-85f173990554?w=400&h=300&fit=crop",
       description: "Shredded beef in tomato-based creole sauce",
       allergens: [],
       proteins: ["beef"],
@@ -238,7 +237,7 @@ export const menuData = {
   ],
 
   // ============================================
-  // DESSERTS CATEGORY
+  // DESSERTS
   // ============================================
   desserts: [
     {
@@ -246,7 +245,7 @@ export const menuData = {
       name: "Flan de Coco",
       price: 6.99,
       category: "desserts",
-      image: "/images/flan-coco.jpg",
+      image: "https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400&h=300&fit=crop",
       description: "Coconut custard with caramel sauce",
       allergens: ["eggs", "dairy", "coconut"],
       proteins: [],
@@ -258,7 +257,7 @@ export const menuData = {
       name: "Tembleque",
       price: 5.99,
       category: "desserts",
-      image: "/images/tembleque.jpg",
+      image: "https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=400&h=300&fit=crop",
       description: "Coconut pudding with cinnamon",
       allergens: ["coconut"],
       proteins: [],
@@ -270,7 +269,7 @@ export const menuData = {
       name: "Tres Leches Cake",
       price: 7.99,
       category: "desserts",
-      image: "/images/tres-leches.jpg",
+      image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop",
       description: "Sponge cake soaked in three types of milk",
       allergens: ["dairy", "eggs", "gluten"],
       proteins: [],
@@ -282,7 +281,7 @@ export const menuData = {
       name: "Quesito",
       price: 4.99,
       category: "desserts",
-      image: "/images/quesito.jpg",
+      image: "https://images.unsplash.com/photo-1571115764595-644a1f56a55c?w=400&h=300&fit=crop",
       description: "Sweet cheese-filled pastry",
       allergens: ["dairy", "gluten"],
       proteins: [],
@@ -292,7 +291,7 @@ export const menuData = {
   ],
 
   // ============================================
-  // SIDES CATEGORY
+  // SIDES
   // ============================================
   sides: [
     {
@@ -300,7 +299,7 @@ export const menuData = {
       name: "White Rice",
       price: 3.99,
       category: "sides",
-      image: "/images/white-rice.jpg",
+      image: "https://images.unsplash.com/photo-1516684732162-798a0062be99?w=400&h=300&fit=crop",
       description: "Fluffy steamed white rice",
       allergens: [],
       proteins: [],
@@ -312,7 +311,7 @@ export const menuData = {
       name: "Rice & Beans",
       price: 4.99,
       category: "sides",
-      image: "/images/rice-and-beans.jpg",
+      image: "https://images.unsplash.com/photo-1512058564366-18510be2db19?w=400&h=300&fit=crop",
       description: "Traditional Puerto Rican rice with pink beans",
       allergens: [],
       proteins: [],
@@ -324,7 +323,7 @@ export const menuData = {
       name: "Tostones",
       price: 4.49,
       category: "sides",
-      image: "/images/tostones-side.jpg",
+      image: "https://images.unsplash.com/photo-1590301157890-4810ed352733?w=400&h=300&fit=crop",
       description: "Crispy twice-fried green plantain slices",
       allergens: [],
       proteins: [],
@@ -336,7 +335,7 @@ export const menuData = {
       name: "Maduros",
       price: 4.49,
       category: "sides",
-      image: "/images/maduros.jpg",
+      image: "https://images.unsplash.com/photo-1547592180-85f173990554?w=400&h=300&fit=crop",
       description: "Sweet fried ripe plantains",
       allergens: [],
       proteins: [],
@@ -348,7 +347,7 @@ export const menuData = {
       name: "Black Beans",
       price: 3.99,
       category: "sides",
-      image: "/images/black-beans.jpg",
+      image: "https://images.unsplash.com/photo-1515543904379-3d757afe72e4?w=400&h=300&fit=crop",
       description: "Slow-cooked black beans with sofrito",
       allergens: [],
       proteins: [],
@@ -360,7 +359,7 @@ export const menuData = {
       name: "Mashed Potatoes",
       price: 4.49,
       category: "sides",
-      image: "/images/mashed-potatoes.jpg",
+      image: "https://images.unsplash.com/photo-1596560548464-f010549b84d7?w=400&h=300&fit=crop",
       description: "Creamy garlic mashed potatoes",
       allergens: ["dairy"],
       proteins: [],
@@ -372,7 +371,7 @@ export const menuData = {
       name: "Grilled Vegetables",
       price: 4.99,
       category: "sides",
-      image: "/images/grilled-vegetables.jpg",
+      image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop",
       description: "Seasonal vegetables grilled with herbs",
       allergens: [],
       proteins: [],
@@ -384,7 +383,7 @@ export const menuData = {
       name: "Yuca Frita",
       price: 5.49,
       category: "sides",
-      image: "/images/yuca-frita.jpg",
+      image: "https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?w=400&h=300&fit=crop",
       description: "Crispy fried cassava with garlic dipping sauce",
       allergens: [],
       proteins: [],
@@ -396,7 +395,7 @@ export const menuData = {
       name: "Ensalada Verde",
       price: 3.99,
       category: "sides",
-      image: "/images/ensalada-verde.jpg",
+      image: "https://images.unsplash.com/photo-1546793665-c74683f339c1?w=400&h=300&fit=crop",
       description: "Simple green salad with vinaigrette",
       allergens: [],
       proteins: [],
