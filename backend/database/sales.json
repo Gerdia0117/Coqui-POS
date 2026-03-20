@@ -1,10 +1,14 @@
 {
-  "total_sales": 66.5615975,
-  "total_orders": 2,
+  "total_sales": 258.86843500000003,
+  "total_orders": 7,
   "sales_by_date": {
     "2026-03-13": {
       "revenue": 66.5615975,
       "orders": 2
+    },
+    "2026-03-19": {
+      "revenue": 192.3068375,
+      "orders": 5
     }
   }
 }

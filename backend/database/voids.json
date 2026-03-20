@@ -49,5 +49,90 @@
     "voidedBy": "Manager",
     "originalSentBy": "Manager",
     "reason": "on the house"
+  },
+  {
+    "voidId": "VOID-1773941371554",
+    "type": "ticket",
+    "ticketId": "TKT-1773941333435",
+    "items": [
+      {
+        "id": "bev-1",
+        "name": "Pi\u00f1a Colada",
+        "quantity": 1,
+        "sentAt": "2026-03-19T13:28:53.435393"
+      },
+      {
+        "id": "bev-2",
+        "name": "Mojito",
+        "quantity": 1,
+        "sentAt": "2026-03-19T13:28:53.435393"
+      },
+      {
+        "id": "app-3",
+        "name": "Empanadillas",
+        "quantity": 1,
+        "sentAt": "2026-03-19T13:28:53.435393"
+      },
+      {
+        "id": "sal-1",
+        "name": "Ensalada de Aguacate",
+        "quantity": 1,
+        "sentAt": "2026-03-19T13:28:53.435393"
+      }
+    ],
+    "voidedAt": "2026-03-19T13:29:31.554063",
+    "voidedBy": "Manager",
+    "originalSentBy": "Manager",
+    "reason": "duplicate"
+  },
+  {
+    "voidId": "VOID-1773941388451",
+    "type": "ticket",
+    "ticketId": "TKT-1773941342712",
+    "items": [
+      {
+        "id": "bev-1",
+        "name": "Pi\u00f1a Colada",
+        "quantity": 1,
+        "sentAt": "2026-03-19T13:29:02.712018"
+      },
+      {
+        "id": "bev-2",
+        "name": "Mojito",
+        "quantity": 1,
+        "sentAt": "2026-03-19T13:29:02.712018"
+      },
+      {
+        "id": "app-3",
+        "name": "Empanadillas",
+        "quantity": 1,
+        "sentAt": "2026-03-19T13:29:02.712018"
+      },
+      {
+        "id": "sal-1",
+        "name": "Ensalada de Aguacate",
+        "quantity": 1,
+        "sentAt": "2026-03-19T13:29:02.712018"
+      }
+    ],
+    "voidedAt": "2026-03-19T13:29:48.450996",
+    "voidedBy": "Manager",
+    "originalSentBy": "Manager",
+    "reason": "duplicate"
+  },
+  {
+    "voidId": "VOID-1773942566660",
+    "type": "item",
+    "ticketId": "TKT-1773942530079",
+    "item": {
+      "id": "bev-1",
+      "name": "Pi\u00f1a Colada",
+      "quantity": 1,
+      "sentAt": "2026-03-19T13:48:50.079498"
+    },
+    "voidedAt": "2026-03-19T13:49:26.660622",
+    "voidedBy": "Manager",
+    "originalSentBy": "Manager",
+    "reason": "miss clicked"
   }
 ]

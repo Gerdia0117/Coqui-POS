@@ -15,10 +15,13 @@ const path  = require("path");
 const OUTPUT_DIR = path.join(__dirname, "frontend", "public", "images");
 
 // Create the folder if it doesn't exist
-if (!fs.existsSync(OUTPUT_DIR)) {
-  fs.mkdirSync(OUTPUT_DIR, { recursive: true });
-  console.log(`✅ Created folder: ${OUTPUT_DIR}\n`);
+function ensureOutputDir() {
+  if (!fs.existsSync(OUTPUT_DIR)) {
+    fs.mkdirSync(OUTPUT_DIR, { recursive: true });
+    console.log(`✅ Created folder: ${OUTPUT_DIR}\n`);
+  }
 }
+ensureOutputDir();
 
 // ============================================================
 // ALL 26 MENU IMAGES
@@ -26,16 +29,16 @@ if (!fs.existsSync(OUTPUT_DIR)) {
 // ============================================================
 const IMAGES = [
   // BEVERAGES
-  ["pina-colada.jpg",       "https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=400&h=300&fit=crop&auto=format"],
+  ["pina-colada.jpg",       "https://images.unsplash.com/photo-1607644536940-6c300b5784c5?w=400&h=300&fit=crop&auto=format"],
   ["mojito.jpg",            "https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=400&h=300&fit=crop&auto=format"],
   ["orange-juice.jpg",      "https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?w=400&h=300&fit=crop&auto=format"],
   ["cafe-con-leche.jpg",    "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=400&h=300&fit=crop&auto=format"],
 
   // APPETIZERS
-  ["tostones.jpg",          "https://images.unsplash.com/photo-1620706857370-e1b9770e8bb1?w=400&h=300&fit=crop&auto=format"],
-  ["alcapurrias.jpg",       "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&h=300&fit=crop&auto=format"],
+  ["tostones.jpg",          "https://images.unsplash.com/photo-1564469563873-7af1e021e76b?w=400&h=300&fit=crop&auto=format"],
+  ["alcapurrias.jpg",       "https://images.unsplash.com/photo-1594746912124-644c91bf0814?w=400&h=300&fit=crop&auto=format"],
   ["empanadillas.jpg",      "https://images.unsplash.com/photo-1604177091072-6e6f28ce7e7f?w=400&h=300&fit=crop&auto=format"],
-  ["bacalaitos.jpg",        "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=400&h=300&fit=crop&auto=format"],
+  ["bacalaitos.jpg",        "https://images.unsplash.com/photo-1620706857370-e1b9770e8bb1?w=400&h=300&fit=crop&auto=format"],
 
   // SALADS
   ["avocado-salad.jpg",     "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop&auto=format"],
@@ -43,28 +46,28 @@ const IMAGES = [
   ["fruit-salad.jpg",       "https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?w=400&h=300&fit=crop&auto=format"],
 
   // MAIN COURSE
-  ["mofongo-camarones.jpg", "https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=400&h=300&fit=crop&auto=format"],
-  ["pernil.jpg",            "https://images.unsplash.com/photo-1544025162-d76694265947?w=400&h=300&fit=crop&auto=format"],
-  ["arroz-con-pollo.jpg",   "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=400&h=300&fit=crop&auto=format"],
+  ["mofongo-camarones.jpg", "https://images.unsplash.com/photo-1626056087729-a1f5c1a7d90d?w=400&h=300&fit=crop&auto=format"],
+  ["pernil.jpg",            "https://images.unsplash.com/photo-1612895572325-f029a8494bb5?w=400&h=300&fit=crop&auto=format"],
+  ["arroz-con-pollo.jpg",   "https://images.unsplash.com/photo-1516714435131-44d6b64dc6a2?w=400&h=300&fit=crop&auto=format"],
   ["churrasco.jpg",         "https://images.unsplash.com/photo-1558030006-450675393462?w=400&h=300&fit=crop&auto=format"],
-  ["pescado-frito.jpg",     "https://images.unsplash.com/photo-1519984388953-d2406bc725e1?w=400&h=300&fit=crop&auto=format"],
-  ["ropa-vieja.jpg",        "https://images.unsplash.com/photo-1547592180-85f173990554?w=400&h=300&fit=crop&auto=format"],
+  ["pescado-frito.jpg",     "https://images.unsplash.com/photo-1566361892779-6afb6bca7052?w=400&h=300&fit=crop&auto=format"],
+  ["ropa-vieja.jpg",        "https://images.unsplash.com/photo-1534939561126-855b8675edd7?w=400&h=300&fit=crop&auto=format"],
 
   // DESSERTS
-  ["flan-coco.jpg",         "https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400&h=300&fit=crop&auto=format"],
-  ["tembleque.jpg",         "https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=400&h=300&fit=crop&auto=format"],
-  ["tres-leches.jpg",       "https://images.unsplash.com/photo-1519915028121-7d3463d20b13?w=400&h=300&fit=crop&auto=format"],
-  ["quesito.jpg",           "https://images.unsplash.com/photo-1571115764595-644a1f56a55c?w=400&h=300&fit=crop&auto=format"],
+  ["flan-coco.jpg",         "https://images.unsplash.com/photo-1593709258262-123afe85c771?w=400&h=300&fit=crop&auto=format"],
+  ["tembleque.jpg",         "https://images.unsplash.com/photo-1585252276549-014ad6a0c063?w=400&h=300&fit=crop&auto=format"],
+  ["tres-leches.jpg",       "https://images.unsplash.com/photo-1559751302-5678e963606c?w=400&h=300&fit=crop&auto=format"],
+  ["quesito.jpg",           "https://images.unsplash.com/photo-1612860129396-19e66d392e73?w=400&h=300&fit=crop&auto=format"],
 
   // SIDES
   ["white-rice.jpg",        "https://images.unsplash.com/photo-1516684732162-798a0062be99?w=400&h=300&fit=crop&auto=format"],
   ["rice-and-beans.jpg",    "https://images.unsplash.com/photo-1512058564366-18510be2db19?w=400&h=300&fit=crop&auto=format"],
-  ["maduros.jpg",           "https://images.unsplash.com/photo-1528712306091-ed0763094c98?w=400&h=300&fit=crop&auto=format"],
-  ["black-beans.jpg",       "https://images.unsplash.com/photo-1540189549336-e6e99eb4b400?w=400&h=300&fit=crop&auto=format"],
-  ["mashed-potatoes.jpg",   "https://images.unsplash.com/photo-1596560548464-f010549b84d7?w=400&h=300&fit=crop&auto=format"],
-  ["grilled-vegetables.jpg","https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop&auto=format"],
+  ["maduros.jpg",           "https://images.unsplash.com/photo-1563336522-c3bd728d3b45?w=400&h=300&fit=crop&auto=format"],
+  ["black-beans.jpg",       "https://images.unsplash.com/photo-1564707919-233dd0c17c56?w=400&h=300&fit=crop&auto=format"],
+  ["mashed-potatoes.jpg",   "https://images.unsplash.com/photo-1633436375153-d7045cb93e38?w=400&h=300&fit=crop&auto=format"],
+  ["grilled-vegetables.jpg","https://images.unsplash.com/photo-1524394071506-4c3fde76077b?w=400&h=300&fit=crop&auto=format"],
   ["yuca-frita.jpg",        "https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?w=400&h=300&fit=crop&auto=format"],
-  ["ensalada-verde.jpg",    "https://images.unsplash.com/photo-1511357840105-748c95f0b4b4?w=400&h=300&fit=crop&auto=format"],
+  ["ensalada-verde.jpg",    "https://images.unsplash.com/photo-1574926054530-540288c8e678?w=400&h=300&fit=crop&auto=format"],
 ];
 
 // ============================================================
@@ -151,4 +154,8 @@ async function main() {
   console.log(`========================================\n`);
 }
 
-main().catch(console.error);
+if (require.main === module) {
+  main().catch(console.error);
+}
+
+module.exports = { download, ensureOutputDir, OUTPUT_DIR };

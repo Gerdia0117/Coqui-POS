@@ -80,5 +80,190 @@
     "cashReceived": 33.29,
     "change": 0.0027899999999974057,
     "timestamp": "3/13/2026, 4:02:24 PM"
+  },
+  {
+    "orderId": "ORD-1773941227215",
+    "items": [
+      {
+        "id": "bev-1",
+        "name": "Pi\u00f1a Colada",
+        "quantity": 1,
+        "sentAt": "2026-03-19T13:16:16.660958",
+        "price": 8.99,
+        "category": "beverages"
+      },
+      {
+        "id": "bev-2",
+        "name": "Mojito",
+        "quantity": 1,
+        "sentAt": "2026-03-19T13:16:16.660958",
+        "price": 7.99,
+        "category": "beverages"
+      },
+      {
+        "id": "app-3",
+        "name": "Empanadillas",
+        "quantity": 1,
+        "sentAt": "2026-03-19T13:16:16.660958",
+        "price": 7.99,
+        "category": "appetizers"
+      },
+      {
+        "id": "sal-1",
+        "name": "Ensalada de Aguacate",
+        "quantity": 1,
+        "sentAt": "2026-03-19T13:16:16.660958",
+        "price": 9.99,
+        "category": "salads"
+      }
+    ],
+    "subtotal": 34.96,
+    "tax": 4.0204,
+    "tip": 7.796080000000001,
+    "total": 46.77648000000001,
+    "paymentMethod": "card",
+    "cashReceived": null,
+    "change": null,
+    "timestamp": "3/19/2026, 1:27:07 PM"
+  },
+  {
+    "orderId": "ORD-1773941327309",
+    "items": [
+      {
+        "id": "bev-1",
+        "name": "Pi\u00f1a Colada",
+        "quantity": 1,
+        "sentAt": "2026-03-19T13:27:23.641951",
+        "price": 8.99,
+        "category": "beverages"
+      },
+      {
+        "id": "bev-2",
+        "name": "Mojito",
+        "quantity": 1,
+        "sentAt": "2026-03-19T13:27:23.641951",
+        "price": 7.99,
+        "category": "beverages"
+      },
+      {
+        "id": "app-3",
+        "name": "Empanadillas",
+        "quantity": 1,
+        "sentAt": "2026-03-19T13:27:23.641951",
+        "price": 7.99,
+        "category": "appetizers"
+      },
+      {
+        "id": "sal-1",
+        "name": "Ensalada de Aguacate",
+        "quantity": 1,
+        "sentAt": "2026-03-19T13:27:23.641951",
+        "price": 9.99,
+        "category": "salads"
+      }
+    ],
+    "subtotal": 34.96,
+    "tax": 4.0204,
+    "tip": 7.796080000000001,
+    "total": 46.77648000000001,
+    "paymentMethod": "cash",
+    "cashReceived": 46.78,
+    "change": 0.0035199999999946385,
+    "timestamp": "3/19/2026, 1:28:47 PM"
+  },
+  {
+    "orderId": "ORD-1773941410094",
+    "items": [
+      {
+        "id": "sal-3",
+        "name": "Tropical Fruit Salad",
+        "quantity": 1,
+        "sentAt": "2026-03-19T13:24:30.890265",
+        "price": 7.99,
+        "category": "salads"
+      },
+      {
+        "id": "sal-2",
+        "name": "Caesar Salad",
+        "quantity": 1,
+        "sentAt": "2026-03-19T13:24:30.890265",
+        "price": 8.99,
+        "category": "salads"
+      }
+    ],
+    "subtotal": 16.98,
+    "tax": 1.9527,
+    "tip": 2.839905,
+    "total": 21.772605,
+    "paymentMethod": "card",
+    "cashReceived": null,
+    "change": null,
+    "timestamp": "3/19/2026, 1:30:10 PM"
+  },
+  {
+    "orderId": "ORD-1773942611371",
+    "items": [
+      {
+        "id": "bev-2",
+        "name": "Mojito",
+        "quantity": 1,
+        "sentAt": "2026-03-19T13:48:50.079498",
+        "price": 7.99,
+        "category": "beverages"
+      },
+      {
+        "id": "main-2",
+        "name": "Pernil Asado",
+        "quantity": 1,
+        "sentAt": "2026-03-19T13:48:50.079498",
+        "price": 16.99,
+        "category": "mainCourse"
+      }
+    ],
+    "subtotal": 24.979999999999997,
+    "tax": 2.8726999999999996,
+    "tip": 5.570539999999999,
+    "total": 33.42323999999999,
+    "paymentMethod": "card",
+    "cashReceived": null,
+    "change": null,
+    "timestamp": "3/19/2026, 1:50:11 PM"
+  },
+  {
+    "orderId": "ORD-1773942639417",
+    "items": [
+      {
+        "id": "bev-1",
+        "name": "Pi\u00f1a Colada",
+        "quantity": 1,
+        "sentAt": "2026-03-19T13:48:33.211964",
+        "price": 8.99,
+        "category": "beverages"
+      },
+      {
+        "id": "bev-2",
+        "name": "Mojito",
+        "quantity": 1,
+        "sentAt": "2026-03-19T13:48:33.211964",
+        "price": 7.99,
+        "category": "beverages"
+      },
+      {
+        "id": "main-2",
+        "name": "Pernil Asado",
+        "quantity": 1,
+        "sentAt": "2026-03-19T13:48:33.211964",
+        "price": 16.99,
+        "category": "mainCourse"
+      }
+    ],
+    "subtotal": 33.97,
+    "tax": 3.90655,
+    "tip": 5.6814825,
+    "total": 43.5580325,
+    "paymentMethod": "cash",
+    "cashReceived": 43.56,
+    "change": 0.0019674999999992338,
+    "timestamp": "3/19/2026, 1:50:39 PM"
   }
 ]
